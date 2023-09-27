@@ -1,10 +1,12 @@
 <!DOCTYPE mozi [
     <!ELEMENT mozi (film*)>
 
-    <!ELEMENT film (rendezo, szinesz, iro+)>
+    <!ELEMENT film (rendezo+, szinesz+, iro+)>
     <!ATTLIST film 
         id ID #REQUIRED
-        mufaj (horror|drama|komedia) #REQUIRED
+    >
+    <!ATTLIST film 
+        mufaj (horror|drama|komedia)
     >
 
     <!ELEMENT rendezo EMPTY>
