@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<xs:schema xmlns:ns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
   <xs:simpleType name="tanevTipus">
     <xs:restriction base="xs:string">
@@ -27,4 +27,5 @@
       <xs:enumeration value="nem"/>
     </xs:restriction>
   </xs:simpleType>
+  
 </xs:schema>
