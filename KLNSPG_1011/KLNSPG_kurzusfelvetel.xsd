@@ -2,26 +2,26 @@
 
 <xs:schema xmlns:ns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
-  <xs:simpleType nev="tanevTipus">
+  <xs:simpleType name="tanevTipus">
     <xs:restriction base="xs:string">
       <xs:pattern value="\d{4}/\d{4}I(I)?"/>
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:simpleType nev="egyetemTipus">
+  <xs:simpleType name="egyetemTipus">
     <xs:restriction base="xs:string">
       <xs:pattern value="ME"/>
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:simpleType nev="idTipus">
+  <xs:simpleType name="idTipus">
     <xs:restriction base="xs:string">
       <xs:minLength value="5"/>
       <xs:maxLength value="10"/>
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:simpleType nev="igenNemTipus">
+  <xs:simpleType name="igenNemTipus">
     <xs:restriction base="xs:string">
       <xs:enumeration value="igen"/>
       <xs:enumeration value="nem"/>
