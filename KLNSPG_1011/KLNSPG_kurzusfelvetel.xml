@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!DOCTYPE MJ_kurzusfelvetel>
+<!DOCTYPE MM_kurzusfelvetel>
 
-<MJ_kurzusfelvetel tanev="2023_2024 I." egyetem="ME">
+<MM_kurzusfelvetel tanev="2023_2024 I." egyetem="ME">
   <hallgato id="KLNSPG.ME">
     <hnev>Martinák Mátyás</hnev>
     <szulev>2002-10-10</szulev>
@@ -39,4 +39,4 @@
       <oktato>Dr. Bednarik László</oktato>
     </kurzus>
   </kurzusok>
-</MJ_kurzusfelvetel>
+</MM_kurzusfelvetel>
