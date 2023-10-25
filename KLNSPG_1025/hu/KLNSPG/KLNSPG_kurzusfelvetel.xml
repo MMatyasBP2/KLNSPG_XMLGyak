@@ -2,11 +2,11 @@
 
 <!DOCTYPE MM_kurzusfelvetel>
 
-<MM_kurzusfelvetel tanev="2023_2024 I." egyetem="ME">
-  <hallgato id="KLNSPG.ME">
+<MM_kurzusfelvetel tanev="2023/2024 I." egyetem="ME">
+  <hallgato id="KLNSPG.ME" evf="5">
     <hnev>Martinák Mátyás</hnev>
     <szulev>2002-10-10</szulev>
-    <szak evf="5"> Programtervező Informatikus </szak>
+    <szak>Programtervező Informatikus</szak>
   </hallgato>
 
   <kurzusok>
