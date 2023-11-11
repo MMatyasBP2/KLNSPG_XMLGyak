@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.9.14)  7 NOV 2023 21:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.9.14)  8 NOV 2023 12:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -498,7 +498,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [3]
 2. fejezet.
-<ERKLNSPG.png, id=86, 1835.85875pt x 646.415pt>
+<ERKLNSPG.png, id=85, 1835.85875pt x 646.415pt>
 File: ERKLNSPG.png Graphic file (type png)
 <use ERKLNSPG.png>
 Package pdftex.def Info: ERKLNSPG.png  used on input line 130.
@@ -514,11 +514,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [4
 
  <./ERKLNSPG.png>]
-<XDMKLNSPG.png, id=96, 5280.72874pt x 823.075pt>
+<XDMKLNSPG.png, id=95, 5280.72874pt x 824.07875pt>
 File: XDMKLNSPG.png Graphic file (type png)
 <use XDMKLNSPG.png>
 Package pdftex.def Info: XDMKLNSPG.png  used on input line 140.
-(pdftex.def)             Requested size: 505.48608pt x 78.7832pt.
+(pdftex.def)             Requested size: 505.48608pt x 78.87929pt.
 
 Overfull \hbox (5.00209pt too wide) in paragraph at lines 140--141
  [][] 
@@ -550,7 +550,7 @@ LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
 Package rerunfilecheck Info: File `XMLTaskKLNSPG.out' has not changed.
-(rerunfilecheck)             Checksum: 97A3BC25B58AC94CEB6E267BECC29883;2087.
+(rerunfilecheck)             Checksum: 4B9E06623A4945EA36319FABB2D6A5F3;1794.
  ) 
 Here is how much of TeX's memory you used:
  13213 strings out of 475248
@@ -573,9 +573,9 @@ l\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\Matyi\AppDat
 a\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1728.pk> <C:\Users\Matyi\
 AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm2074.pk> <C:\Users\
 Matyi\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm2488.pk>
-Output written on XMLTaskKLNSPG.pdf (7 pages, 398265 bytes).
+Output written on XMLTaskKLNSPG.pdf (7 pages, 396546 bytes).
 PDF statistics:
- 487 PDF objects out of 1000 (max. 8388607)
+ 482 PDF objects out of 1000 (max. 8388607)
  21 named destinations out of 1000 (max. 500000)
  99 words of extra memory for PDF output out of 10000 (max. 10000000)
 

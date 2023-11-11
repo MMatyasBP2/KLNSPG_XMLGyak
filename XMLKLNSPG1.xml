@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Zoo_KLNSPG xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XMLSchemaKLNSPG.xsd">
+        
+    <!-- Employee példányok-->
+        
+    <Employee emp_id="1">
+                
+        <first_name>Kovács</first_name>
+                
+        <last_name>János</last_name>
+                
+        <birth_date>1979-11-02</birth_date>
+                
+        <sex>M</sex>
+            
+    </Employee>
+        
+    <Employee emp_id="2">
+                
+        <first_name>Jakab</first_name>
+                
+        <last_name>József</last_name>
+                
+        <birth_date>1954-12-06</birth_date>
+                
+        <sex>M</sex>
+            
+    </Employee>
+        
+    <Employee emp_id="3">
+                
+        <first_name>Balogh</first_name>
+                
+        <last_name>Boglárka</last_name>
+                
+        <birth_date>2000-11-04</birth_date>
+                
+        <sex>F</sex>
+            
+    </Employee>
+        
+    <!-- Site példányok-->
+        
+    <Site Manage="1" Works="3" site_id="1">
+                
+        <name>Miskolc Állatkert</name>
+                
+        <area>212000</area>
+                
+        <opening_hours>09:00 - 17:00</opening_hours>
+            
+    </Site>
+        
+    <Site Manage="2" Works="1" site_id="2">
+                
+        <name>Fővárosi Állat-és Növénykert</name>
+                
+        <area>184001</area>
+                
+        <opening_hours>09:00 - 17:30</opening_hours>
+            
+    </Site>
+        
+    <Site Manage="3" Works="2" site_id="3">
+                
+        <name>Debreceni Állatkert és Vidámpark</name>
+                
+        <area>170000</area>
+                
+        <opening_hours>09:00 - 15:30</opening_hours>
+            
+    </Site>
+        
+    <!-- Habitat példányok-->
+        
+    <Habitat Occupy="3" habitat_id="1">
+                
+        <name>Medve park</name>
+                
+        <location>#3</location>
+                
+        <description>Az állatkerti medvék élőhelye. Jelenleg három medve található itt, Jázmin, Andor és Matykó. Szeretik a látogatókat, mindig érdeklődve nézelődnek.</description>
+            
+    </Habitat>
+        
+    <Habitat Occupy="1" habitat_id="2">
+                
+        <name>Muflonok dombja</name>
+                
+        <location>#22</location>
+                
+        <description>Vadasparkunk muflonjai itt találhatóak. Barátságosak, túrista kedvelők, szeretik a finom falatokat.</description>
+            
+    </Habitat>
+        
+    <Habitat Occupy="2" habitat_id="3">
+                
+        <name>Szurikáták szigete</name>
+                
+        <location>#18</location>
+                
+        <description>Ki ne imádná a kis érdeklődő szurikátákat. Nálunk rögtön 4-et is örökbe fogadhat, vagy csak látogathat is.</description>
+            
+    </Habitat>
+        
+    <!-- Animal példányok-->
+        
+    <Animal animal_id="1">
+                
+        <name>Matykó</name>
+                
+        <racial>Medve</racial>
+                
+        <description>Az állatkert egyik kan medvéje</description>
+            
+    </Animal>
+        
+    <Animal animal_id="2">
+                
+        <name>Kis Hegyes</name>
+                
+        <racial>Muflon</racial>
+                
+        <description>Az állatkert nőstény muflona</description>
+            
+    </Animal>
+        
+    <Animal animal_id="3">
+                
+        <name>Mókás</name>
+                
+        <racial>Szurikáta</racial>
+                
+        <description>Az állatkert legfiatalabb szurikátája</description>
+            
+    </Animal>
+        
+    <!-- Food példányok-->
+        
+    <Food food_id="1">
+                
+        <name>Fagyasztott nyershús</name>
+                
+        <is_delicious>false</is_delicious>
+                
+        <company>Family Frost</company>
+            
+    </Food>
+        
+    <Food food_id="2">
+                
+        <name>Sárgarépa</name>
+                
+        <is_delicious>true</is_delicious>
+                
+        <company>Magyar Zöldség</company>
+            
+    </Food>
+        
+    <Food food_id="3">
+                
+        <name>Sült husi</name>
+                
+        <is_delicious>true</is_delicious>
+                
+        <company>Family Frost</company>
+            
+    </Food>
+        
+    <!-- Eat példányok-->
+        
+    <Eat AnimalEat="3" FoodEat="1" eat_id="1">
+                
+        <feeding_time>09:00:00 18:00:00</feeding_time>
+            
+    </Eat>
+        
+    <Eat AnimalEat="1" FoodEat="3" eat_id="2">
+                
+        <feeding_time>07:00:00 20:00:00</feeding_time>
+            
+    </Eat>
+        
+    <Eat AnimalEat="2" FoodEat="2" eat_id="3">
+                
+        <feeding_time>06:00:00 14:00:00 20:00:00</feeding_time>
+            
+    </Eat>
+        
+
+    
+    <!-- User példányok-->
+        
+    <User Favor="3" user_id="1">
+                
+        <username>Allatbarat</username>
+                
+        <password>allat123</password>
+                
+        <sex>M</sex>
+                
+        <first_name>Kiss</first_name>
+                
+        <last_name>Sándor</last_name>
+                
+        <post_code>8200</post_code>
+                
+        <city>Veszprém</city>
+                
+        <street>Petőfi Sándor utca</street>
+                
+        <number>3</number>
+            
+    </User>
+        
+    <User Favor="1" user_id="2">
+                
+        <username>Vadoc</username>
+                
+        <password>fegyo02</password>
+                
+        <sex>M</sex>
+                
+        <first_name>Fegyver</first_name>
+                
+        <last_name>Sándor</last_name>
+                
+        <post_code>4024</post_code>
+                
+        <city>Debrecen</city>
+                
+        <street>Kossuth utca</street>
+                
+        <number>26</number>
+            
+    </User>
+        
+    <User Favor="2" user_id="3">
+                
+        <username>Possumluvr</username>
+                
+        <password>possumlover</password>
+                
+        <sex>F</sex>
+                
+        <first_name>Kazai</first_name>
+                
+        <last_name>Eszter</last_name>
+                
+        <post_code>3521</post_code>
+                
+        <city>Miskolc</city>
+                
+        <street>Új élet utca</street>
+                
+        <number>24</number>
+            
+    </User>
+    
+</Zoo_KLNSPG>

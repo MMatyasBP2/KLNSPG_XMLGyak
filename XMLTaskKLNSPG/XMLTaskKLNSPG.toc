@@ -3,7 +3,7 @@
 \select@language {magyar} \contentsline {section}{\numberline {2.1}ER modell}{4}{section.2.1}%
 \select@language {magyar} \contentsline {section}{\numberline {2.2}XDM modell}{4}{section.2.2}%
 \select@language {magyar} \contentsline {section}{\numberline {2.3}Az XDM modell alapján XML dokumentum készítése}{5}{section.2.3}%
-\select@language {magyar} \contentsline {section}{\numberline {2.4}Az XML dokumentum alapján XMLSchema készítése - saját típusok, ref, key, keyref, speciális elemek}{5}{section.2.4}%
+\select@language {magyar} \contentsline {section}{\numberline {2.4}Az XML dokumentum alapján XMLSchema készítése}{5}{section.2.4}%
 \select@language {magyar} \contentsline {chapter}{\numberline {3}II. feladat - DOM}{6}{chapter.3}%
 \select@language {magyar} \contentsline {section}{\numberline {3.1}Adatolvasás}{6}{section.3.1}%
 \select@language {magyar} \contentsline {section}{\numberline {3.2}Adatmódosítás}{6}{section.3.2}%
