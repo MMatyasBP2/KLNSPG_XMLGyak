@@ -12,7 +12,7 @@ public class DOMWriteKLNSPG
 
     public static void main(String[] args)
     {
-        try
+        try 
         {
             File inputFile = new File("C:\\projects\\KLNSPG_XMLGyak\\XMLTaskKLNSPG\\XMLKLNSPG.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -24,58 +24,45 @@ public class DOMWriteKLNSPG
             writeDocumentToFile(doc, "XMLKLNSPG1.xml");
 
             System.out.println("The content has been written to the output file successfully.");
-        }
-        catch (SAXException e)
-        {
-            e.printStackTrace();
-        } 
-        catch (Exception e)
+        } catch (SAXException | IOException | ParserConfigurationException | TransformerException e) 
         {
             e.printStackTrace();
         }
     }
 
-    private static void printNode(Node node, String indent)
+    private static void printNode(Node node, String indent) 
     {
-        System.out.print(indent + "<" + node.getNodeName());
-
-        // Print attributes if any
-        if (node.hasAttributes())
+        if (node.getNodeType() == Node.ELEMENT_NODE) 
         {
-            NamedNodeMap nodeMap = node.getAttributes();
-            for (int i = 0; i < nodeMap.getLength(); i++)
+            System.out.print(indent + node.getNodeName());
+            if (node.hasAttributes()) 
             {
-                Node attr = nodeMap.item(i);
-                System.out.print(" " + attr.getNodeName() + "=\"" + attr.getNodeValue() + "\"");
-            }
-        }
-
-        NodeList children = node.getChildNodes();
-        if (children.getLength() > 0)
-        {
-            System.out.println(">");
-
-            // Recursively handle child nodes
-            String childIndent = indent + "    ";
-            for (int i = 0; i < children.getLength(); i++)
-            {
-                Node child = children.item(i);
-                if (child.getNodeType() == Node.ELEMENT_NODE)
-                    printNode(child, childIndent);
-                else if (child.getNodeType() == Node.TEXT_NODE)
+                NamedNodeMap nodeMap = node.getAttributes();
+                for (int i = 0; i < nodeMap.getLength(); i++) 
                 {
-                    String content = child.getTextContent().trim();
-                    if (!content.isEmpty())
-                        System.out.println(childIndent + content);
+                    Node attr = nodeMap.item(i);
+                    System.out.print(attr.getNodeName() + "=" + attr.getNodeValue() + (i < nodeMap.getLength() - 1 ? ", " : ""));
                 }
             }
 
-            System.out.println(indent + "</" + node.getNodeName() + ">");
+            System.out.println(" start");
+
+            NodeList children = node.getChildNodes();
+            String childIndent = indent + "    ";
+            for (int i = 0; i < children.getLength(); i++) 
+                printNode(children.item(i), childIndent);
+
+            System.out.println(indent + node.getNodeName() + " end");
+        } 
+        else if (node.getNodeType() == Node.TEXT_NODE) 
+        {
+            String content = node.getTextContent().trim();
+            if (!content.isEmpty()) 
+                System.out.println(indent + content);
         }
-        else System.out.println("/>");
     }
 
-    private static void writeDocumentToFile(Document doc, String filename) throws TransformerException
+    private static void writeDocumentToFile(Document doc, String filename) throws TransformerException 
     {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();

@@ -5,9 +5,9 @@
         
     <Employee emp_id="1">
                 
-        <first_name>Kovács</first_name>
+        <first_name>Kovacs</first_name>
                 
-        <last_name>János</last_name>
+        <last_name>Janos</last_name>
                 
         <birth_date>1979-11-02</birth_date>
                 
@@ -19,7 +19,7 @@
                 
         <first_name>Jakab</first_name>
                 
-        <last_name>József</last_name>
+        <last_name>Jozsef</last_name>
                 
         <birth_date>1954-12-06</birth_date>
                 
@@ -31,7 +31,7 @@
                 
         <first_name>Balogh</first_name>
                 
-        <last_name>Boglárka</last_name>
+        <last_name>Boglarka</last_name>
                 
         <birth_date>2000-11-04</birth_date>
                 
@@ -43,7 +43,7 @@
         
     <Site Manage="1" Works="3" site_id="1">
                 
-        <name>Miskolc Állatkert</name>
+        <name>Miskolc Allatkert</name>
                 
         <area>212000</area>
                 
@@ -53,7 +53,7 @@
         
     <Site Manage="2" Works="1" site_id="2">
                 
-        <name>Fővárosi Állat-és Növénykert</name>
+        <name>Fovarosi Allat-es Novenykert</name>
                 
         <area>184001</area>
                 
@@ -63,7 +63,7 @@
         
     <Site Manage="3" Works="2" site_id="3">
                 
-        <name>Debreceni Állatkert és Vidámpark</name>
+        <name>Debreceni Allatkert es Vidampark</name>
                 
         <area>170000</area>
                 
@@ -79,7 +79,7 @@
                 
         <location>#3</location>
                 
-        <description>Az állatkerti medvék élőhelye. Jelenleg három medve található itt, Jázmin, Andor és Matykó. Szeretik a látogatókat, mindig érdeklődve nézelődnek.</description>
+        <description>Az allatkerti medvek elohelye. Jelenleg harom medve talalhato itt, Jazmin, Andor es Matyko. Szeretik a latogatokat, mindig erdeklodve nezelodnek.</description>
             
     </Habitat>
         
@@ -89,17 +89,17 @@
                 
         <location>#22</location>
                 
-        <description>Vadasparkunk muflonjai itt találhatóak. Barátságosak, túrista kedvelők, szeretik a finom falatokat.</description>
+        <description>Vadasparkunk muflonjai itt talalhatoak. Baratsagosak, turista kedvelok, szeretik a finom falatokat.</description>
             
     </Habitat>
         
     <Habitat Occupy="2" habitat_id="3">
                 
-        <name>Szurikáták szigete</name>
+        <name>Szurikatak szigete</name>
                 
         <location>#18</location>
                 
-        <description>Ki ne imádná a kis érdeklődő szurikátákat. Nálunk rögtön 4-et is örökbe fogadhat, vagy csak látogathat is.</description>
+        <description>Ki ne imadna a kis erdeklodo szurikatakat. Nalunk rogton 4-et is orokbe fogadhat, vagy csak latogathat is.</description>
             
     </Habitat>
         
@@ -107,11 +107,11 @@
         
     <Animal animal_id="1">
                 
-        <name>Matykó</name>
+        <name>Matyko</name>
                 
         <racial>Medve</racial>
                 
-        <description>Az állatkert egyik kan medvéje</description>
+        <description>Az allatkert egyik kan medveje</description>
             
     </Animal>
         
@@ -121,17 +121,17 @@
                 
         <racial>Muflon</racial>
                 
-        <description>Az állatkert nőstény muflona</description>
+        <description>Az allatkert nosteny muflona</description>
             
     </Animal>
         
     <Animal animal_id="3">
                 
-        <name>Mókás</name>
+        <name>Mokas</name>
                 
-        <racial>Szurikáta</racial>
+        <racial>Szurikata</racial>
                 
-        <description>Az állatkert legfiatalabb szurikátája</description>
+        <description>Az allatkert legfiatalabb szurikataja</description>
             
     </Animal>
         
@@ -139,7 +139,7 @@
         
     <Food food_id="1">
                 
-        <name>Fagyasztott nyershús</name>
+        <name>Fagyasztott nyershus</name>
                 
         <is_delicious>false</is_delicious>
                 
@@ -149,17 +149,17 @@
         
     <Food food_id="2">
                 
-        <name>Sárgarépa</name>
+        <name>Sargarepa</name>
                 
         <is_delicious>true</is_delicious>
                 
-        <company>Magyar Zöldség</company>
+        <company>Magyar Zoldseg</company>
             
     </Food>
         
     <Food food_id="3">
                 
-        <name>Sült husi</name>
+        <name>Sult husi</name>
                 
         <is_delicious>true</is_delicious>
                 
@@ -201,13 +201,13 @@
                 
         <first_name>Kiss</first_name>
                 
-        <last_name>Sándor</last_name>
+        <last_name>Sandor</last_name>
                 
         <post_code>8200</post_code>
                 
-        <city>Veszprém</city>
+        <city>Veszprem</city>
                 
-        <street>Petőfi Sándor utca</street>
+        <street>Petofi Sandor utca</street>
                 
         <number>3</number>
             
@@ -223,7 +223,7 @@
                 
         <first_name>Fegyver</first_name>
                 
-        <last_name>Sándor</last_name>
+        <last_name>Sandor</last_name>
                 
         <post_code>4024</post_code>
                 
@@ -251,7 +251,7 @@
                 
         <city>Miskolc</city>
                 
-        <street>Új élet utca</street>
+        <street>Uj elet utca</street>
                 
         <number>24</number>
             

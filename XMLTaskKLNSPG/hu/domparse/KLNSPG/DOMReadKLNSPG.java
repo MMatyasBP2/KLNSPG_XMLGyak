@@ -55,18 +55,17 @@ public class DOMReadKLNSPG
                 String empId = eElement.getAttribute("emp_id");
                 String firstName = eElement.getElementsByTagName("first_name").item(0).getTextContent();
                 String lastName = eElement.getElementsByTagName("last_name").item(0).getTextContent();
-                String birthDate = eElement.getElementsByTagName("birth_date").item(0).getTextContent();
                 String sex = eElement.getElementsByTagName("sex").item(0).getTextContent();
-    
-                System.out.println("    <Employee emp_id=\"" + empId + "\">");
-                System.out.println("        <first_name>" + firstName + "</first_name>");
-                System.out.println("        <last_name>" + lastName + "</last_name>");
-                System.out.println("        <birth_date>" + birthDate + "</birth_date>");
-                System.out.println("        <sex>" + sex + "</sex>");
-                System.out.println("    </Employee>");
+                // ... other data extraction ...
+
+                System.out.println("    Employee {emp_id=" + empId + "} start");
+                printElement("first_name", firstName);
+                printElement("last_name", lastName);
+                printElement("sex", sex);
+                System.out.println("    Employee end");
             }
         }
-    }    
+    }
 
     private static void readSites(Document document)
     {
@@ -83,16 +82,15 @@ public class DOMReadKLNSPG
                 String name = eElement.getElementsByTagName("name").item(0).getTextContent();
                 String area = eElement.getElementsByTagName("area").item(0).getTextContent();
                 String openingHours = eElement.getElementsByTagName("opening_hours").item(0).getTextContent();
-    
-                // XML formátumban való kiírás
-                System.out.println("    <Site site_id=\"" + siteId + "\" Works=\"" + works + "\" Manage=\"" + manage + "\">");
-                System.out.println("        <name>" + name + "</name>");
-                System.out.println("        <area>" + area + "</area>");
-                System.out.println("        <opening_hours>" + openingHours + "</opening_hours>");
-                System.out.println("    </Site>");
+        
+                System.out.println("    Site {site_id=" + siteId + ", Works=" + works + ", Manage=" + manage + "} start");
+                printElement("name", name);
+                printElement("area", area);
+                printElement("opening_hours", openingHours);
+                System.out.println("    Site end");
             }
         }
-    }    
+    }        
 
     private static void readHabitats(Document document)
     {
@@ -108,16 +106,15 @@ public class DOMReadKLNSPG
                 String name = eElement.getElementsByTagName("name").item(0).getTextContent();
                 String location = eElement.getElementsByTagName("location").item(0).getTextContent();
                 String description = eElement.getElementsByTagName("description").item(0).getTextContent();
-
-                // XML formátumban való kiírás
-                System.out.println("    <Habitat habitat_id=\"" + habitatId + "\" Occupy=\"" + occupy + "\">");
-                System.out.println("        <name>" + name + "</name>");
-                System.out.println("        <location>" + location + "</location>");
-                System.out.println("        <description>" + description + "</description>");
-                System.out.println("    </Habitat>");
+    
+                System.out.println("    Habitat {habitat_id=" + habitatId + ", Occupy=" + occupy + "} start");
+                printElement("name", name);
+                printElement("location", location);
+                printElement("description", description);
+                System.out.println("    Habitat end");
             }
         }
-    }    
+    }
 
     private static void readAnimals(Document document)
     {
@@ -132,13 +129,12 @@ public class DOMReadKLNSPG
                 String name = eElement.getElementsByTagName("name").item(0).getTextContent();
                 String racial = eElement.getElementsByTagName("racial").item(0).getTextContent();
                 String description = eElement.getElementsByTagName("description").item(0).getTextContent();
-    
-                // XML formátumban való kiírás
-                System.out.println("    <Animal animal_id=\"" + animalId + "\">");
-                System.out.println("        <name>" + name + "</name>");
-                System.out.println("        <racial>" + racial + "</racial>");
-                System.out.println("        <description>" + description + "</description>");
-                System.out.println("    </Animal>");
+        
+                System.out.println("    Animal {animal_id=" + animalId + "} start");
+                printElement("name", name);
+                printElement("racial", racial);
+                printElement("description", description);
+                System.out.println("    Animal end");
             }
         }
     }
@@ -156,13 +152,12 @@ public class DOMReadKLNSPG
                 String name = eElement.getElementsByTagName("name").item(0).getTextContent();
                 String isDelicious = eElement.getElementsByTagName("is_delicious").item(0).getTextContent();
                 String company = eElement.getElementsByTagName("company").item(0).getTextContent();
-    
-                // XML formátumban való kiírás
-                System.out.println("    <Food food_id=\"" + foodId + "\">");
-                System.out.println("        <name>" + name + "</name>");
-                System.out.println("        <is_delicious>" + isDelicious + "</is_delicious>");
-                System.out.println("        <company>" + company + "</company>");
-                System.out.println("    </Food>");
+        
+                System.out.println("    Food {food_id=" + foodId + "} start");
+                printElement("name", name);
+                printElement("is_delicious", isDelicious);
+                printElement("company", company);
+                System.out.println("    Food end");
             }
         }
     }    
@@ -176,16 +171,14 @@ public class DOMReadKLNSPG
             if (node.getNodeType() == Node.ELEMENT_NODE)
             {
                 Element eElement = (Element) node;
-                // Az attribútumok és elemek kiolvasása
                 String eatId = eElement.getAttribute("eat_id");
                 String foodEat = eElement.getAttribute("FoodEat");
                 String animalEat = eElement.getAttribute("AnimalEat");
                 String feedingTime = eElement.getElementsByTagName("feeding_time").item(0).getTextContent();
-    
-                // XML formátumban való kiírás
-                System.out.println("    <Eat eat_id=\"" + eatId + "\" FoodEat=\"" + foodEat + "\" AnimalEat=\"" + animalEat + "\">");
-                System.out.println("        <feeding_time>" + feedingTime + "</feeding_time>");
-                System.out.println("    </Eat>");
+        
+                System.out.println("    Eat {eat_id=" + eatId + ", FoodEat=" + foodEat + ", AnimalEat=" + animalEat + "} start");
+                printElement("feeding_time", feedingTime);
+                System.out.println("    Eat end");
             }
         }
     }    
@@ -210,20 +203,26 @@ public class DOMReadKLNSPG
                 String city = eElement.getElementsByTagName("city").item(0).getTextContent();
                 String street = eElement.getElementsByTagName("street").item(0).getTextContent();
                 String number = eElement.getElementsByTagName("number").item(0).getTextContent();
-    
-                // XML formátumban való kiírás
-                System.out.println("    <User user_id=\"" + userId + "\" Favor=\"" + favor + "\">");
-                System.out.println("        <username>" + username + "</username>");
-                System.out.println("        <password>" + password + "</password>");
-                System.out.println("        <sex>" + sex + "</sex>");
-                System.out.println("        <first_name>" + firstName + "</first_name>");
-                System.out.println("        <last_name>" + lastName + "</last_name>");
-                System.out.println("        <post_code>" + postCode + "</post_code>");
-                System.out.println("        <city>" + city + "</city>");
-                System.out.println("        <street>" + street + "</street>");
-                System.out.println("        <number>" + number + "</number>");
-                System.out.println("    </User>");
+        
+                System.out.println("    User {user_id=" + userId + ", Favor=" + favor + "} start");
+                printElement("username", username);
+                printElement("password", password);
+                printElement("sex", sex);
+                printElement("first_name", firstName);
+                printElement("last_name", lastName);
+                printElement("post_code", postCode);
+                printElement("city", city);
+                printElement("street", street);
+                printElement("number", number);
+                System.out.println("    User end");
             }
         }
+    }
+
+    private static void printElement(String elementName, String content)
+    {
+        System.out.println("        " + elementName + " start");
+        System.out.println("            " + content);
+        System.out.println("        " + elementName + " end");
     }    
 }
