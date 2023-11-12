@@ -19,43 +19,29 @@
 \definecolor{codepurple}{HTML}{C42043}
 \definecolor{backcolour}{HTML}{F2F2F2}
 \definecolor{bookColor}{cmyk}{0,0,0,0.90}  
+\definecolor{xmltagcolor}{rgb}{0,0,1}
+\definecolor{xmltagcolor}{rgb}{0,0,1}
+\definecolor{xmlcommentcolor}{rgb}{0,0.6,0}
+\definecolor{xmlstringcolor}{rgb}{0.6,0,0}
 \color{bookColor}
 \lstset{upquote=true}
 
-\lstdefinestyle{mystyle}{  
-	commentstyle=\color{codegreen},
-	keywordstyle=\color{blue},
-	numberstyle=\footnotesize\color{codegray},
-	stringstyle=\color{codepurple},
-	basicstyle=\footnotesize,
-	breakatwhitespace=false,         
-	breaklines=true,                 
-	captionpos=b,                    
-	keepspaces=true,                 
-	numbers=left,                    
-	numbersep=-10pt,                  
-	showspaces=false,                
-	showstringspaces=false,
-	showtabs=false, 
-	inputencoding = utf8,  % Input encoding
-	extendedchars = true,  % Extended ASCII
-	literate      =        % Support additional characters
-	{á}{{\'a}}1  {é}{{\'e}}1  {í}{{\'i}}1 {ó}{{\'o}}1  {ú}{{\'u}}1
-	{Á}{{\'A}}1  {É}{{\'E}}1  {Í}{{\'I}}1 {Ó}{{\'O}}1  {Ú}{{\'U}}1
-	{à}{{\`a}}1  {è}{{\`e}}1  {ì}{{\`i}}1 {ò}{{\`o}}1  {ù}{{\`u}}1
-	{À}{{\`A}}1  {È}{{\'E}}1  {Ì}{{\`I}}1 {Ò}{{\`O}}1  {Ù}{{\`U}}1
-	{ä}{{\"a}}1  {ë}{{\"e}}1  {ï}{{\"i}}1 {ö}{{\"o}}1  {ü}{{\"u}}1
-	{Ä}{{\"A}}1  {Ë}{{\"E}}1  {Ï}{{\"I}}1 {Ö}{{\"O}}1  {Ü}{{\"U}}1
-	{â}{{\^a}}1  {ê}{{\^e}}1  {î}{{\^i}}1 {ô}{{\^o}}1  {û}{{\^u}}1
-	{Â}{{\^A}}1  {Ê}{{\^E}}1  {Î}{{\^I}}1 {Ô}{{\^O}}1  {Û}{{\^U}}1
-	{œ}{{\oe}}1  {Œ}{{\OE}}1  {æ}{{\ae}}1 {Æ}{{\AE}}1  {ß}{{\ss}}1
-	{ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1  {Ø}{{\O}}1   {å}{{\r a}}1
-	{Å}{{\r A}}1 {ã}{{\~a}}1  {õ}{{\~o}}1 {Ã}{{\~A}}1  {Õ}{{\~O}}1
-	{ñ}{{\~n}}1  {Ñ}{{\~N}}1  {¿}{{?`}}1  {¡}{{!`}}1	{ő}{{\"O}}2
-	{ű}{{\"U}}2
-	{°}{{\textdegree}}1 {º}{{\textordmasculine}}1 {ª}{{\textordfeminine}}1
+\lstdefinestyle{mystyle}{
+	language=XML, % Setting the language as XML
+	basicstyle=\ttfamily\footnotesize, % Setting the basic style
+	morestring=[b]", % Strings are in double quotes
+	morestring=[s][\color{xmltagcolor}]{<}{>}, % Coloring XML tags blue
+	morecomment=[s][\color{xmlcommentcolor}]{<!--}{-->}, % Coloring comments
+	showstringspaces=false, % Not showing spaces in strings
+	breaklines=true, % Break long lines
+	breakatwhitespace=true, % Break lines at whitespace
+	tabsize=2, % Setting tab size
+	captionpos=b, % Caption position at bottom
+	extendedchars=true, % Allowing extended characters
+	keepspaces=true, % Keeping spaces for formatting
 }
-\lstset{style=mystyle} 
+
+\lstset{style=mystyle} % Applying the style globally
 
 \usepackage{fancyhdr}
 \fancypagestyle{plain}{
@@ -150,8 +136,383 @@ A ,,Works'' kapcsolat \texttt{1:N}, ahol a több érték az \textit{Employee}-ho
 \end{itemize}
 Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 
-\section{Az XDM modell alapján XML dokumentum készítése}
+\section[Az XML dokumentum]{Az XDM modell alapján XML dokumentum készítése}
+\indent\indent Az \texttt{XMLKLNSPG.xml} dokumentumot \textit{Visual Studio Code}-ban hoztam létre, és \texttt{XML 1.0} szabvány szerint készült el. A dokumentumhoz hozzá kötöttem az \texttt{XMLSchemaKLNSPG.xsd} XSD file-t, és definiáltam az egyedeket az XML szabályainak megfelelően. Ahol szükséges volt, gyermek elemeket, valamint attribútumokat használtam a tagok azonosításához.
+
+\begin{lstlisting}[caption={Az XML dokumentum}]
+	<?xml version="1.0" encoding="UTF-8"?>
+	
+	<Zoo_KLNSPG xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XMLSchemaKLNSPG.xsd">
+	
+	<!-- Employee peldanyok-->
+	<Employee emp_id="1">
+	<first_name>Kovacs</first_name>
+	<last_name>Janos</last_name>
+	<birth_date>1979-11-02</birth_date>
+	<sex>M</sex>
+	</Employee>
+	<Employee emp_id="2">
+	<first_name>Jakab</first_name>
+	<last_name>Jozsef</last_name>
+	<birth_date>1954-12-06</birth_date>
+	<sex>M</sex>
+	</Employee>
+	<Employee emp_id="3">
+	<first_name>Balogh</first_name>
+	<last_name>Boglarka</last_name>
+	<birth_date>2000-11-04</birth_date>
+	<sex>F</sex>
+	</Employee>
+	
+	<!-- Site peldanyok-->
+	<Site site_id="1" Works="3" Manage="1">
+	<name>Miskolc Allatkert</name>
+	<area>212000</area>
+	<opening_hours>09:00 - 17:00</opening_hours>
+	</Site>
+	<Site site_id="2" Works="1" Manage="2">
+	<name>Fovarosi Allat-es Novenykert</name>
+	<area>184001</area>
+	<opening_hours>09:00 - 17:30</opening_hours>
+	</Site>
+	<Site site_id="3" Works="2" Manage="3">
+	<name>Debreceni Allatkert es Vidampark</name>
+	<area>170000</area>
+	<opening_hours>09:00 - 15:30</opening_hours>
+	</Site>
+	
+	<!-- Habitat peldanyok-->
+	<Habitat habitat_id="1" Occupy="3">
+	<name>Medve park</name>
+	<location>#3</location>
+	<description>Az allatkerti medvek elohelye. Jelenleg harom medve talalhato itt, Jazmin, Andor es Matyko. Szeretik a latogatokat, mindig erdeklodve nezelodnek.</description>
+	</Habitat>
+	<Habitat habitat_id="2" Occupy="1">
+	<name>Muflonok dombja</name>
+	<location>#22</location>
+	<description>Vadasparkunk muflonjai itt talalhatoak. Baratsagosak, turista kedvelok, szeretik a finom falatokat.</description>
+	</Habitat>
+	<Habitat habitat_id="3" Occupy="2">
+	<name>Szurikatak szigete</name>
+	<location>#18</location>
+	<description>Ki ne imadna a kis erdeklodo szurikatakat. Nalunk rogton 4-et is orokbe fogadhat, vagy csak latogathat is.</description>
+	</Habitat>
+	
+	<!-- Animal peldanyok-->
+	<Animal animal_id="1">
+	<name>Matyko</name>
+	<racial>Medve</racial>
+	<description>Az allatkert egyik kan medveje</description>
+	</Animal>
+	<Animal animal_id="2">
+	<name>Kis Hegyes</name>
+	<racial>Muflon</racial>
+	<description>Az allatkert nosteny muflona</description>
+	</Animal>
+	<Animal animal_id="3">
+	<name>Mokas</name>
+	<racial>Szurikata</racial>
+	<description>Az allatkert legfiatalabb szurikataja</description>
+	</Animal>
+	
+	<!-- Food peldanyok-->
+	<Food food_id="1">
+	<name>Fagyasztott nyershus</name>
+	<is_delicious>false</is_delicious>
+	<company>Family Frost</company>
+	</Food>
+	<Food food_id="2">
+	<name>Sargarepa</name>
+	<is_delicious>true</is_delicious>
+	<company>Magyar Zoldseg</company>
+	</Food>
+	<Food food_id="3">
+	<name>Sult husi</name>
+	<is_delicious>true</is_delicious>
+	<company>Family Frost</company>
+	</Food>
+	
+	<!-- Eat peldanyok-->
+	<Eat eat_id="1" FoodEat="1" AnimalEat="3">
+	<feeding_time>09:00:00 18:00:00</feeding_time>
+	</Eat>
+	<Eat eat_id="2" FoodEat="3" AnimalEat="1">
+	<feeding_time>07:00:00 20:00:00</feeding_time>
+	</Eat>
+	<Eat eat_id="3" FoodEat="2" AnimalEat="2">
+	<feeding_time>06:00:00 14:00:00 20:00:00</feeding_time>
+	</Eat>    
+	
+	<!-- User peldanyok-->
+	<User user_id="1" Favor="3">
+	<username>Allatbarat</username>
+	<password>allat123</password>
+	<sex>M</sex>
+	<first_name>Kiss</first_name>
+	<last_name>Sandor</last_name>
+	<post_code>8200</post_code>
+	<city>Veszprem</city>
+	<street>Petofi Sandor utca</street>
+	<number>3</number>
+	</User>
+	<User user_id="2" Favor="1">
+	<username>Vadoc</username>
+	<password>fegyo02</password>
+	<sex>M</sex>
+	<first_name>Fegyver</first_name>
+	<last_name>Sandor</last_name>
+	<post_code>4024</post_code>
+	<city>Debrecen</city>
+	<street>Kossuth utca</street>
+	<number>26</number>
+	</User>
+	<User user_id="3" Favor="2">
+	<username>Possumluvr</username>
+	<password>possumlover</password>
+	<sex>F</sex>
+	<first_name>Kazai</first_name>
+	<last_name>Eszter</last_name>
+	<post_code>3521</post_code>
+	<city>Miskolc</city>
+	<street>Uj elet utca</street>
+	<number>24</number>
+	</User>
+	
+	</Zoo_KLNSPG>
+\end{lstlisting}
+\clearpage
+
 \section{Az XML dokumentum alapján XMLSchema készítése}
+\indent\indent Az \texttt{XMLSchemaKLNSPG.xsd} séma file leírja mindazon megkötéseket, amelyeknek az XML dokumentumnak meg kell felelnie. Itt definiálunk minden típust, amit az XML file-ban használni szeretnénk, valamint az adatbázis kapcsolatait \texttt{xs:unique} és \texttt{xs:keyref} bejegyzésekkel hozom létre.
+
+\begin{lstlisting}[caption={Az XSD dokumentum}]
+	<?xml version="1.0" encoding="UTF-8"?>
+	<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	
+	<!-- Sajat egyszeru tipusok definialasa -->
+	
+	<!-- Altalanos sajat tipusok-->
+	<xs:element name="name" type="xs:string"/>
+	<xs:element name="first_name" type="xs:string"/>
+	<xs:element name="last_name" type="xs:string"/>
+	<xs:element name="sex" type="sexType"/>
+	<xs:element name="description" type="xs:string"/>
+	
+	<!-- Employee sajat tipus-->
+	<xs:element name="birth_date" type="dateType"/>
+	
+	<!-- Site sajat tipusok-->
+	<xs:element name="area" type="xs:integer"/>
+	<xs:element name="opening_hours" type="xs:string"/>
+	
+	<!-- Habitat sajat tipus-->
+	<xs:element name="location" type="xs:string"/>
+	
+	<!-- Animal sajat tipus-->
+	<xs:element name="racial" type="xs:string"/>
+	
+	<!-- Food sajat tipus-->
+	<xs:element name="is_delicious" type="xs:boolean"/>
+	<xs:element name="company" type="xs:string"/>
+	
+	<!-- Eat sajat tipus-->
+	<xs:element name="feeding_time" type="timeListType"/>
+	
+	<!-- User sajat tipusok-->
+	<xs:element name="username" type="xs:string"/>
+	<xs:element name="password" type="xs:string"/>
+	<xs:element name="post_code" type="xs:string"/>
+	<xs:element name="city" type="xs:string"/>
+	<xs:element name="street" type="xs:string"/>
+	<xs:element name="number" type="xs:string"/>
+	
+	<!-- Simple types-->
+	<xs:simpleType name="dateType">
+	<xs:restriction base="xs:date">
+	<xs:minInclusive value="1940-01-01"/>
+	<xs:maxInclusive value="2000-12-31"/>
+	</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="sexType">
+	<xs:restriction base="xs:string">
+	<xs:enumeration value="M"/>
+	<xs:enumeration value="F"/>
+	</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="timeListType">
+	<xs:list itemType="xs:time"/>
+	</xs:simpleType>
+	
+	<!-- Complex types-->
+	<xs:complexType name="employeeType">
+	<xs:sequence>
+	<xs:element ref="first_name"/>
+	<xs:element ref="last_name"/>
+	<xs:element ref="birth_date"/>
+	<xs:element ref="sex"/>
+	</xs:sequence>
+	<xs:attribute name="emp_id" type="xs:integer" use="required"/>
+	</xs:complexType>
+	
+	<xs:complexType name="siteType">
+	<xs:sequence>
+	<xs:element ref="name"/>
+	<xs:element ref="area"/>
+	<xs:element ref="opening_hours"/>
+	</xs:sequence>
+	<xs:attribute name="site_id" type="xs:integer" use="required"/>
+	<xs:attribute name="Works" type="xs:integer" use="required"/>
+	<xs:attribute name="Manage" type="xs:integer" use="required"/>
+	</xs:complexType>
+	
+	<xs:complexType name="habitatType">
+	<xs:sequence>
+	<xs:element ref="name"/>
+	<xs:element ref="location"/>
+	<xs:element ref="description"/>
+	</xs:sequence>
+	<xs:attribute name="habitat_id" type="xs:integer" use="required"/>
+	<xs:attribute name="Occupy" type="xs:integer" use="required"/>
+	</xs:complexType>
+	
+	<xs:complexType name="animalType">
+	<xs:sequence>
+	<xs:element ref="name"/>
+	<xs:element ref="racial"/>
+	<xs:element ref="description"/>
+	</xs:sequence>
+	<xs:attribute name="animal_id" type="xs:integer" use="required"/>
+	</xs:complexType>
+	
+	<xs:complexType name="foodType">
+	<xs:sequence>
+	<xs:element ref="name"/>
+	<xs:element ref="is_delicious"/>
+	<xs:element ref="company"/>
+	</xs:sequence>
+	<xs:attribute name="food_id" type="xs:integer" use="required"/>
+	</xs:complexType>
+	
+	<xs:complexType name="eatType">
+	<xs:sequence>
+	<xs:element ref="feeding_time"/>
+	</xs:sequence>
+	<xs:attribute name="eat_id" type="xs:integer" use="required"/>
+	<xs:attribute name="FoodEat" type="xs:integer" use="required"/>
+	<xs:attribute name="AnimalEat" type="xs:integer" use="required"/>
+	</xs:complexType>
+	
+	<xs:complexType name="userType">
+	<xs:sequence>
+	<xs:element ref="username"/>
+	<xs:element ref="password"/>
+	<xs:element ref="sex"/>
+	<xs:element ref="first_name"/>
+	<xs:element ref="last_name"/>
+	<xs:element ref="post_code"/>
+	<xs:element ref="city"/>
+	<xs:element ref="street"/>
+	<xs:element ref="number"/>
+	</xs:sequence>
+	<xs:attribute name="user_id" type="xs:integer" use="required"/>
+	<xs:attribute name="Favor" type="xs:integer" use="required"/>
+	</xs:complexType>
+	
+	<!-- A gyokerelem osszetett tipusa -->
+	<xs:complexType name="zooType">
+	<xs:sequence>
+	<xs:element name="Employee" type="employeeType" minOccurs="3" maxOccurs="unbounded"/>
+	<xs:element name="Site" type="siteType" minOccurs="3" maxOccurs="unbounded"/>
+	<xs:element name="Habitat" type="habitatType" minOccurs="3" maxOccurs="unbounded"/>
+	<xs:element name="Animal" type="animalType" minOccurs="3" maxOccurs="unbounded"/>
+	<xs:element name="Food" type="foodType" minOccurs="3" maxOccurs="unbounded"/>
+	<xs:element name="Eat" type="eatType" minOccurs="3" maxOccurs="unbounded"/>
+	<xs:element name="User" type="userType" minOccurs="3" maxOccurs="unbounded"/>
+	</xs:sequence>
+	</xs:complexType>
+	
+	<!-- A gyokerelem definicioja -->
+	<xs:element name="Zoo_KLNSPG" type="zooType">
+	
+	<!-- Elsodleges kulcsok -->
+	<xs:key name="EmployeeKey">
+	<xs:selector xpath="Employee"/>
+	<xs:field xpath="@emp_id"/>
+	</xs:key>
+	
+	<xs:key name="SiteKey">
+	<xs:selector xpath="Site"/>
+	<xs:field xpath="@site_id"/>
+	</xs:key>
+	
+	<xs:key name="HabitatKey">
+	<xs:selector xpath="Habitat"/>
+	<xs:field xpath="@habitat_id"/>
+	</xs:key>
+	
+	<xs:key name="AnimalKey">
+	<xs:selector xpath="Animal"/>
+	<xs:field xpath="@animal_id"/>
+	</xs:key>
+	
+	<xs:key name="FoodKey">
+	<xs:selector xpath="Food"/>
+	<xs:field xpath="@food_id"/>
+	</xs:key>
+	
+	<xs:key name="EatKey">
+	<xs:selector xpath="Eat"/>
+	<xs:field xpath="@eat_id"/>
+	</xs:key>
+	
+	<xs:key name="UserKey">
+	<xs:selector xpath="User"/>
+	<xs:field xpath="@user_id"/>
+	</xs:key>
+	
+	<!-- Idegen kulcsok -->
+	<xs:keyref name="SiteWork" refer="EmployeeKey">
+	<xs:selector xpath="Site"/>
+	<xs:field xpath="@Works"/>
+	</xs:keyref>
+	
+	<xs:keyref name="SiteManage" refer="HabitatKey">
+	<xs:selector xpath="Site"/>
+	<xs:field xpath="@Manage"/>
+	</xs:keyref>
+	
+	<xs:keyref name="HabitatOccupy" refer="AnimalKey">
+	<xs:selector xpath="Habitat"/>
+	<xs:field xpath="@Occupy"/>
+	</xs:keyref>
+	
+	<xs:keyref name="EatFood" refer="FoodKey">
+	<xs:selector xpath="Eat"/>
+	<xs:field xpath="@FoodEat"/>
+	</xs:keyref>
+	
+	<xs:keyref name="EatAnimal" refer="AnimalKey">
+	<xs:selector xpath="Eat"/>
+	<xs:field xpath="@AnimalEat"/>
+	</xs:keyref>
+	
+	<xs:keyref name="UserAnimal" refer="AnimalKey">
+	<xs:selector xpath="User"/>
+	<xs:field xpath="@Favor"/>
+	</xs:keyref>
+	
+	<!-- Az 1:1 kapcsolat-->
+	<xs:unique name="UserAnimalConnect">
+	<xs:selector xpath="UserKey"/>
+	<xs:field xpath="@Favor"/>
+	</xs:unique>
+	
+	</xs:element>
+	
+	</xs:schema>
+\end{lstlisting}
 \chapter{II. feladat - DOM}
 \section{Adatolvasás}
 \section{Adatmódosítás}
