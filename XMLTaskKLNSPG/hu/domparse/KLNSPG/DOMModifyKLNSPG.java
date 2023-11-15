@@ -1,8 +1,16 @@
 import javax.xml.parsers.*;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
 import org.w3c.dom.*;
 import java.io.File;
 
-public class DOMModifyKLNSPG {
+public class DOMModifyKLNSPG 
+{
+    // Main metódus
     public static void main(String argv[])
     {
         try
@@ -13,11 +21,16 @@ public class DOMModifyKLNSPG {
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
             Document doc = docBuilder.parse(inputFile);
 
-            System.out.println("--Results--");
+            modifyEmployees(doc);
+            modifySites(doc);
+            modifyAnimals(doc);
 
-            modifyAndPrintEmployees(doc);
-            modifyAndPrintSites(doc);
-            modifyAndPrintAnimals(doc);
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            DOMSource source = new DOMSource(doc);
+            StreamResult consoleResult = new StreamResult(System.out);
+            transformer.transform(source, consoleResult);
         } 
         catch (Exception e)
         {
@@ -25,7 +38,8 @@ public class DOMModifyKLNSPG {
         }
     }
 
-    private static void modifyAndPrintEmployees(Document doc)
+    // Employee példányokat módosító metódus
+    private static void modifyEmployees(Document doc)
     {
         NodeList employeeList = doc.getElementsByTagName("Employee");
         for (int i = 0; i < employeeList.getLength(); i++)
@@ -34,14 +48,11 @@ public class DOMModifyKLNSPG {
             Element eElement = (Element) employee;
             String empId = eElement.getAttribute("emp_id");
             eElement.setAttribute("emp_id", "EMP_" + empId);
-            System.out.println("    Employee {emp_id=" + eElement.getAttribute("emp_id") + "} start");
-            printElement("first_name", eElement.getElementsByTagName("first_name").item(0).getTextContent());
-            printElement("last_name", eElement.getElementsByTagName("last_name").item(0).getTextContent());
-            System.out.println("    Employee end");
         }
     }
 
-    private static void modifyAndPrintSites(Document doc)
+    // Site példányokat módosító metódus
+    private static void modifySites(Document doc)
     {
         NodeList siteList = doc.getElementsByTagName("Site");
         for (int i = 0; i < siteList.getLength(); i++)
@@ -49,13 +60,11 @@ public class DOMModifyKLNSPG {
             Node site = siteList.item(i);
             Element eElement = (Element) site;
             eElement.setAttribute("visitor_capacity", "5000");
-            System.out.println("    Site {visitor_capacity=" + eElement.getAttribute("visitor_capacity") + "} start");
-            printElement("name", eElement.getElementsByTagName("name").item(0).getTextContent());
-            System.out.println("    Site end");
         }
     }
 
-    private static void modifyAndPrintAnimals(Document doc)
+    // Animal (Medve) példányt módosító metódus
+    private static void modifyAnimals(Document doc)
     {
         NodeList animalList = doc.getElementsByTagName("Animal");
         for (int i = 0; i < animalList.getLength(); i++)
@@ -64,19 +73,6 @@ public class DOMModifyKLNSPG {
             Element eElement = (Element) animal;
             if ("Medve".equals(eElement.getElementsByTagName("racial").item(0).getTextContent()))
                 eElement.getElementsByTagName("description").item(0).setTextContent("A medve eros es bator");
-
-            System.out.println("    Animal start");
-            printElement("name", eElement.getElementsByTagName("name").item(0).getTextContent());
-            printElement("racial", eElement.getElementsByTagName("racial").item(0).getTextContent());
-            printElement("description", eElement.getElementsByTagName("description").item(0).getTextContent());
-            System.out.println("    Animal end");
         }
-    }
-
-    private static void printElement(String elementName, String content)
-    {
-        System.out.println("        " + elementName + " start");
-        System.out.println("            " + content);
-        System.out.println("        " + elementName + " end");
     }
 }

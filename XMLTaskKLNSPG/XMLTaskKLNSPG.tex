@@ -525,7 +525,7 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 	
 	public class DOMReadKLNSPG
 	{
-		// Main metódus
+		// Main metodus
 		public static void main(String[] args) 
 		{
 			try 
@@ -554,7 +554,7 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 			}
 		}
 		
-		// Employee Node beolvasó metódus
+		// Employee Node beolvaso metodus
 		private static void readEmployees(Document document) 
 		{
 			NodeList employeeList = document.getElementsByTagName("Employee");
@@ -578,7 +578,7 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 			}
 		}
 		
-		// Site Node beolvasó metódus
+		// Site Node beolvaso metodus
 		private static void readSites(Document document) 
 		{
 			NodeList siteList = document.getElementsByTagName("Site");
@@ -604,7 +604,7 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 			}
 		}
 		
-		// Habitat Node beolvasó metódus
+		// Habitat Node beolvaso metodus
 		private static void readHabitats(Document document) 
 		{
 			NodeList habitatList = document.getElementsByTagName("Habitat");
@@ -629,7 +629,7 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 			}
 		}
 		
-		// Animal Node beolvasó metódus
+		// Animal Node beolvaso metodus
 		private static void readAnimals(Document document) 
 		{
 			NodeList animalList = document.getElementsByTagName("Animal");
@@ -653,7 +653,7 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 			}
 		}
 		
-		// Food Node beolvasó metódus
+		// Food Node beolvaso metodus
 		private static void readFoods(Document document) 
 		{
 			NodeList foodList = document.getElementsByTagName("Food");
@@ -677,7 +677,7 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 			}
 		}
 		
-		// Eat Node beolvasó metódus
+		// Eat Node beolvaso metodus
 		private static void readEats(Document document) 
 		{
 			NodeList eatList = document.getElementsByTagName("Eat");
@@ -699,7 +699,7 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 			}
 		}
 		
-		// User Node beolvasó metódus
+		// User Node beolvaso metodus
 		private static void readUsers(Document document)
 		{
 			NodeList userList = document.getElementsByTagName("User");
@@ -745,20 +745,22 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 \end{lstlisting}
 
 \section{Adatmódosítás}
-\indent\indent A következő program megváltoztat egyes információkat az XML dokumentumban. Az alábbi változtatásokat hajtottam végre:
-
-\begin{itemize}
-	\item Az \textit{Employee} példányok elsődleges kulcsának átírása
-	\item A Site példányokhoz egy ún. \texttt{visitor\_capacity} attribútum hozzáadása
-	\item A \textit{Medve} nevű állat leírásának módosítása
-\end{itemize}
+\indent\indent Ez a Java program, a DOMModifyKLNSPG, egy XML fájlt olvas be és módosítja azt a DOM (Document Object Model) API segítségével. Az XML fájl, amely egy állatkert adatait tartalmazza, egy előre meghatározott útvonalon található, és a DocumentBuilder osztály segítségével parse-olják. A program három fő részre oszlik: \texttt{modifyEmployees}, \texttt{modifySites}, és \texttt{modifyAnimals} metódusokra, melyek különböző XML elemeket módosítanak. Az modifyEmployees metódus az Employee elemek \texttt{emp\_id} attribútumát módosítja, minden \texttt{emp\_id} elé \texttt{,,EMP\_''} előtagot illesztve. A \texttt{modifySites} metódus a Site elemek \texttt{visitor\_capacity} attribútumát állítja be ,,5000''-re, amely valószínűleg a látogatók maximális számát jelenti. A \texttt{modifyAnimals} metódus a Medve \texttt{racial} értékkel rendelkező Animal elemek \texttt{description} elemének szövegét módosítja ,,A medve eros es bator'' szövegre. A módosítások után a program egy \textit{Transformer} segítségével visszaalakítja és kiírja a módosított DOM-ot XML formátumban. Az XML kiírás során a \textit{Transformer} beállításai biztosítják a formázott, olvasható kimenetet, az \texttt{OutputKeys.INDENT} beállítás segítségével.\\
 
 \begin{lstlisting}[caption={DOMQModifyKLNSPG.java} olvasó program, language=Java]
 	import javax.xml.parsers.*;
+	import javax.xml.transform.OutputKeys;
+	import javax.xml.transform.Transformer;
+	import javax.xml.transform.TransformerFactory;
+	import javax.xml.transform.dom.DOMSource;
+	import javax.xml.transform.stream.StreamResult;
+	
 	import org.w3c.dom.*;
 	import java.io.File;
 	
-	public class DOMModifyKLNSPG {
+	public class DOMModifyKLNSPG 
+	{
+		// Main metodus
 		public static void main(String argv[])
 		{
 			try
@@ -769,11 +771,16 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 				DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 				Document doc = docBuilder.parse(inputFile);
 				
-				System.out.println("--Results--");
+				modifyEmployees(doc);
+				modifySites(doc);
+				modifyAnimals(doc);
 				
-				modifyAndPrintEmployees(doc);
-				modifyAndPrintSites(doc);
-				modifyAndPrintAnimals(doc);
+				TransformerFactory transformerFactory = TransformerFactory.newInstance();
+				Transformer transformer = transformerFactory.newTransformer();
+				transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+				DOMSource source = new DOMSource(doc);
+				StreamResult consoleResult = new StreamResult(System.out);
+				transformer.transform(source, consoleResult);
 			} 
 			catch (Exception e)
 			{
@@ -781,7 +788,8 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 			}
 		}
 		
-		private static void modifyAndPrintEmployees(Document doc)
+		// Employee peldanyokat modosito metodus
+		private static void modifyEmployees(Document doc)
 		{
 			NodeList employeeList = doc.getElementsByTagName("Employee");
 			for (int i = 0; i < employeeList.getLength(); i++)
@@ -790,14 +798,11 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 				Element eElement = (Element) employee;
 				String empId = eElement.getAttribute("emp_id");
 				eElement.setAttribute("emp_id", "EMP_" + empId);
-				System.out.println("    Employee {emp_id=" + eElement.getAttribute("emp_id") + "} start");
-				printElement("first_name", eElement.getElementsByTagName("first_name").item(0).getTextContent());
-				printElement("last_name", eElement.getElementsByTagName("last_name").item(0).getTextContent());
-				System.out.println("    Employee end");
 			}
 		}
 		
-		private static void modifyAndPrintSites(Document doc)
+		// Site peldanyokat modosito metodus
+		private static void modifySites(Document doc)
 		{
 			NodeList siteList = doc.getElementsByTagName("Site");
 			for (int i = 0; i < siteList.getLength(); i++)
@@ -805,13 +810,11 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 				Node site = siteList.item(i);
 				Element eElement = (Element) site;
 				eElement.setAttribute("visitor_capacity", "5000");
-				System.out.println("    Site {visitor_capacity=" + eElement.getAttribute("visitor_capacity") + "} start");
-				printElement("name", eElement.getElementsByTagName("name").item(0).getTextContent());
-				System.out.println("    Site end");
 			}
 		}
 		
-		private static void modifyAndPrintAnimals(Document doc)
+		// Animal (Medve) peldanyt modosito metodus
+		private static void modifyAnimals(Document doc)
 		{
 			NodeList animalList = doc.getElementsByTagName("Animal");
 			for (int i = 0; i < animalList.getLength(); i++)
@@ -820,20 +823,7 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 				Element eElement = (Element) animal;
 				if ("Medve".equals(eElement.getElementsByTagName("racial").item(0).getTextContent()))
 				eElement.getElementsByTagName("description").item(0).setTextContent("A medve eros es bator");
-				
-				System.out.println("    Animal start");
-				printElement("name", eElement.getElementsByTagName("name").item(0).getTextContent());
-				printElement("racial", eElement.getElementsByTagName("racial").item(0).getTextContent());
-				printElement("description", eElement.getElementsByTagName("description").item(0).getTextContent());
-				System.out.println("    Animal end");
 			}
-		}
-		
-		private static void printElement(String elementName, String content)
-		{
-			System.out.println("        " + elementName + " start");
-			System.out.println("            " + content);
-			System.out.println("        " + elementName + " end");
 		}
 	}
 \end{lstlisting}
