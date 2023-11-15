@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.9.14)  15 NOV 2023 14:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.9.14)  15 NOV 2023 18:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -709,6 +709,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [21]
+Underfull \hbox (badness 10000) in paragraph at lines 832--833
+
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -718,6 +722,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [22]
+Overfull \hbox (23.39784pt too wide) in paragraph at lines 890--891
+[][][][][][][][][][][][][][][][][][][][][]  
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -745,6 +753,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [25]
+Underfull \hbox (badness 10000) in paragraph at lines 989--990
+
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -762,7 +774,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[27] (XMLTaskKLNSPG.aux)
+[27]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[28] (XMLTaskKLNSPG.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
@@ -771,10 +792,10 @@ Package rerunfilecheck Info: File `XMLTaskKLNSPG.out' has not changed.
 (rerunfilecheck)             Checksum: 42D5AE2FA377CE238F8643F5AED74503;1625.
  ) 
 Here is how much of TeX's memory you used:
- 14670 strings out of 475248
- 233866 string characters out of 5757813
+ 14705 strings out of 475248
+ 234430 string characters out of 5757813
  2104801 words of memory out of 5000000
- 35112 multiletter control sequences out of 15000+600000
+ 35115 multiletter control sequences out of 15000+600000
  571389 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,12n,79p,1380b,2078s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -793,12 +814,10 @@ AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\
 Matyi\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1728.pk> <C:\
 Users\Matyi\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm2074.pk
 > <C:\Users\Matyi\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm2
-488.pk><C:/Users/Matyi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfont
-s/cm/cmmi12.pfb><C:/Users/Matyi/AppData/Local/Programs/MiKTeX/fonts/type1/publi
-c/amsfonts/cm/cmr8.pfb>
-Output written on XMLTaskKLNSPG.pdf (28 pages, 627829 bytes).
+488.pk>
+Output written on XMLTaskKLNSPG.pdf (29 pages, 628512 bytes).
 PDF statistics:
- 1789 PDF objects out of 2073 (max. 8388607)
- 909 named destinations out of 1000 (max. 500000)
+ 1846 PDF objects out of 2073 (max. 8388607)
+ 941 named destinations out of 1000 (max. 500000)
  99 words of extra memory for PDF output out of 10000 (max. 10000000)
 

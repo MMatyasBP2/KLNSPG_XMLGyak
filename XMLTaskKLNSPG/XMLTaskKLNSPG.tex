@@ -829,14 +829,7 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 \end{lstlisting}
 
 \section{Adatlekérdezés}
-\indent\indent Az alábbi program különböző kritériumok alapján kérdez le információkat az XML programból, attribútumok és mezőértékek alapján. Az alábbi lekérdezések írtam meg:
-\begin{itemize}
-	\item Lekérdezés a férfi Employee-kre
-	\item Lekérdezés a legnagyobb $m^3$-rű Site-ra
-	\item Lekérdezés az 1999 után született Employee-kre
-	\item Lekérdezés a "Medve park" nevű Habitat description-jére
-	\item Lekérdezés a 3. id-jú User lakcímére
-\end{itemize}
+\indent\indent A program a Java \texttt{DOM Parser}-t használja XML fájlok feldolgozására, ami lehetővé teszi a XML elemek olvasását és manipulálását egy objektumorientált módon. A kód, az XML fájlt, a \texttt{File} objektumon keresztül tölti be, biztosítva ezzel a fájl elérését és kezelését. A \texttt{DocumentBuilderFactory} és \texttt{DocumentBuilder} osztályok használata a fájl DOM reprezentációjának létrehozásához szükséges, ami egy strukturált, fa-szerű modellt biztosít az XML adatok számára. A program minden egyes lekérdezést egy for ciklus segítségével hajt végre, ahol a \texttt{getElementsByTagName} metódus segítségével specifikus XML elemeket keres. Az elemek feldolgozása során a \texttt{Node} és \texttt{Element} interfészeket használja, amelyek lehetővé teszik az egyes elemek attribútumainak és tartalmának elérését. A lekérdezések eredményét egy \texttt{StringBuilder} objektumba gyűjti, amely hatékonyan kezeli a nagy mennyiségű string összefűzését. A kód, az összegyűjtött adatokat XML-szerű formátumban állítja elő.\\
 
 \begin{lstlisting}[caption={DOMQueryKLNSPG.java} olvasó program, language=Java]
 import java.io.*;
@@ -846,7 +839,8 @@ import org.xml.sax.SAXException;
 
 public class DOMQueryKLNSPG
 {
-	public static void main(String argv[]) throws SAXException, IOException, ParserConfigurationException
+	// Main metodus
+	public static void main(String argv[]) throws SAXException, IOException, ParserConfigurationException 
 	{
 		File xmlFile = new File("C:\\projects\\KLNSPG_XMLGyak\\XMLTaskKLNSPG\\XMLKLNSPG.xml");
 		
@@ -856,114 +850,143 @@ public class DOMQueryKLNSPG
 		Document doc = dBuilder.parse(xmlFile);
 		doc.getDocumentElement().normalize();
 		
+		StringBuilder outputBuilder = new StringBuilder();
+		
+		// Lekerdezes a ferfi Employee-kre
 		NodeList employeeList = doc.getElementsByTagName("Employee");
-		System.out.println("\nEmployees:");
-		for (int i = 0; i < employeeList.getLength(); i++)
+		outputBuilder.append("<Employees>\n");
+		for (int i = 0; i < employeeList.getLength(); i++) 
 		{
 			Node node = employeeList.item(i);
-			if (node.getNodeType() == Node.ELEMENT_NODE)
+			if (node.getNodeType() == Node.ELEMENT_NODE) 
 			{
 				Element element = (Element) node;
 				String sex = element.getElementsByTagName("sex").item(0).getTextContent();
-				if (sex.equals("M"))
-				{
+				if (sex.equals("M")) {
 					String empId = element.getAttribute("emp_id");
 					String firstName = element.getElementsByTagName("first_name").item(0).getTextContent();
 					String lastName = element.getElementsByTagName("last_name").item(0).getTextContent();
 					String birthDate = element.getElementsByTagName("birth_date").item(0).getTextContent();
-					System.out.println("ID: " + empId + ", Name: " + firstName + " " + lastName + ", Birth Date: " + birthDate + ", Sex: " + sex);
+					outputBuilder.append(String.format("  <Employee ID=\"%s\">\n", empId));
+					outputBuilder.append(String.format("    <Name>%s %s</Name>\n", firstName, lastName));
+					outputBuilder.append(String.format("    <BirthDate>%s</BirthDate>\n", birthDate));
+					outputBuilder.append(String.format("    <Sex>%s</Sex>\n", sex));
+					outputBuilder.append("  </Employee>\n");
 				}
 			}
 		}
+		outputBuilder.append("</Employees>\n");
 		
+		// Lekerdezes a legnagyobb m^3-ru Site-ra
 		NodeList siteList = doc.getElementsByTagName("Site");
 		int maxArea = 0;
-		String maxAreaSiteId = null;
-		String maxAreaSiteName = null;
-		for (int i = 0; i < siteList.getLength(); i++)
+		Element maxAreaElement = null;
+		for (int i = 0; i < siteList.getLength(); i++) 
 		{
 			Node node = siteList.item(i);
-			if (node.getNodeType() == Node.ELEMENT_NODE)
+			if (node.getNodeType() == Node.ELEMENT_NODE) 
 			{
 				Element element = (Element) node;
-				String siteId = element.getAttribute("site_id");
-				String name = element.getElementsByTagName("name").item(0).getTextContent();
-				String area = element.getElementsByTagName("area").item(0).getTextContent();
-				int currentArea = Integer.parseInt(area);
-				if (currentArea > maxArea)
+				int currentArea = Integer.parseInt(element.getElementsByTagName("area").item(0).getTextContent());
+				if (currentArea > maxArea) 
 				{
 					maxArea = currentArea;
-					maxAreaSiteId = siteId;
-					maxAreaSiteName = name;
+					maxAreaElement = element;
 				}
 			}
 		}
-		System.out.println("\nSite with the largest area:");
-		System.out.println("Site ID: " + maxAreaSiteId + ", Name: " + maxAreaSiteName + ", Area: " + maxArea);
+		if (maxAreaElement != null) {
+			String siteId = maxAreaElement.getAttribute("site_id");
+			String name = maxAreaElement.getElementsByTagName("name").item(0).getTextContent();
+			outputBuilder.append("\n<LargestSite>\n");
+			outputBuilder.append(String.format("  <Site ID=\"%s\">\n", siteId));
+			outputBuilder.append(String.format("    <Name>%s</Name>\n", name));
+			outputBuilder.append(String.format("    <Area>%d</Area>\n", maxArea));
+			outputBuilder.append("  </Site>\n");
+			outputBuilder.append("</LargestSite>\n");
+		}
 		
-		employeeList = doc.getElementsByTagName("Employee");
-		System.out.println("\nEmployees born after 1999:");
-		for (int i = 0; i < employeeList.getLength(); i++)
+		// Lekerdezes az 1999 utan szuletett Employee-kre
+		outputBuilder.append("\n<EmployeesBornAfter1999>\n");
+		for (int i = 0; i < employeeList.getLength(); i++) 
 		{
 			Node node = employeeList.item(i);
-			if (node.getNodeType() == Node.ELEMENT_NODE)
+			if (node.getNodeType() == Node.ELEMENT_NODE) 
 			{
 				Element element = (Element) node;
 				String birthDate = element.getElementsByTagName("birth_date").item(0).getTextContent();
-				String[] birthDateParts = birthDate.split("-");
-				int birthYear = Integer.parseInt(birthDateParts[0]);
-				if (birthYear > 1999)
-				{
+				int birthYear = Integer.parseInt(birthDate.substring(0, 4));
+				if (birthYear > 1999) {
 					String empId = element.getAttribute("emp_id");
 					String firstName = element.getElementsByTagName("first_name").item(0).getTextContent();
 					String lastName = element.getElementsByTagName("last_name").item(0).getTextContent();
-					System.out.println("ID: " + empId + ", Name: " + firstName + " " + lastName + ", Birth Date: " + birthDate);
+					outputBuilder.append(String.format("  <Employee ID=\"%s\">\n", empId));
+					outputBuilder.append(String.format("    <Name>%s %s</Name>\n", firstName, lastName));
+					outputBuilder.append(String.format("    <BirthDate>%s</BirthDate>\n", birthDate));
+					outputBuilder.append("  </Employee>\n");
 				}
 			}
 		}
+		outputBuilder.append("</EmployeesBornAfter1999>\n");
 		
+		// Lekerdezes a "Medve park" nevu Habitat description-jere
 		NodeList habitatList = doc.getElementsByTagName("Habitat");
-		System.out.println("\nDescription of \"Medve Park\":");
-		for (int i = 0; i < habitatList.getLength(); i++)
+		outputBuilder.append("\n<MedveParkDescription>\n");
+		for (int i = 0; i < habitatList.getLength(); i++) 
 		{
 			Node node = habitatList.item(i);
-			if (node.getNodeType() == Node.ELEMENT_NODE)
+			if (node.getNodeType() == Node.ELEMENT_NODE) 
 			{
 				Element element = (Element) node;
 				String name = element.getElementsByTagName("name").item(0).getTextContent();
-				if (name.equals("Medve park"))
+				if (name.equals("Medve park")) 
 				{
 					String description = element.getElementsByTagName("description").item(0).getTextContent();
-					System.out.println("Habitat description: " + description);
+					outputBuilder.append(String.format("  <Description>%s</Description>\n", description));
 				}
 			}
 		}
+		outputBuilder.append("</MedveParkDescription>\n");
 		
+		// Lekerdezes a 3. id-ju User lakcimere
 		NodeList userList = doc.getElementsByTagName("User");
-		System.out.println("\nAddress of user_id 3:");
-		for (int i = 0; i < userList.getLength(); i++)
+		outputBuilder.append("\n<UserAddress id=\"3\">\n");
+		for (int i = 0; i < userList.getLength(); i++) 
 		{
 			Node node = userList.item(i);
-			if (node.getNodeType() == Node.ELEMENT_NODE)
+			if (node.getNodeType() == Node.ELEMENT_NODE) 
 			{
 				Element element = (Element) node;
-				String userId = element.getAttribute("user_id");
-				if (Integer.parseInt(userId) == 3)
+				if (element.getAttribute("user_id").equals("3")) 
 				{
 					String postCode = element.getElementsByTagName("post_code").item(0).getTextContent();
 					String city = element.getElementsByTagName("city").item(0).getTextContent();
 					String street = element.getElementsByTagName("street").item(0).getTextContent();
 					String number = element.getElementsByTagName("number").item(0).getTextContent();
-					System.out.println("User address: " + postCode + " " + city + " " + street + " " + number);
+					outputBuilder.append(String.format("  <Address>\n"));
+					outputBuilder.append(String.format("    <PostCode>%s</PostCode>\n", postCode));
+					outputBuilder.append(String.format("    <City>%s</City>\n", city));
+					outputBuilder.append(String.format("    <Street>%s</Street>\n", street));
+					outputBuilder.append(String.format("    <Number>%s</Number>\n", number));
+					outputBuilder.append("  </Address>\n");
 				}
 			}
 		}
+		outputBuilder.append("</UserAddress>\n");
+		
+		System.out.println(outputBuilder.toString());
 	}
 }
 \end{lstlisting}
 
 \section{Adatírás}
+\indent\indent A kód fő funkciója, hogy beolvassa és kiírja az XML tartalmakat a konzolra és fájlba is. A main metódusban az \textit{XMLKLNSPG} fájlt olvassa be a megadott útvonalról, használva a \\ \texttt{DocumentBuilderFactory} és \texttt{DocumentBuilder} osztályokat az XML struktúra elemzéséhez. Ezután normalizálja a dokumentumot a \texttt{normalize} metódussal, ami segít a DOM fa struktúrájának rendezésében.
 
+A \texttt{printNode} metódus rekurzívan bejárja a DOM fát, és az elemeket XML formátumban írja ki a konzolra, beleértve az attribútumokat és szöveges tartalmakat is. A kód gondosan kezeli az attribútumokat és a gyermek elemeket, így az XML struktúra a konzolra írásakor is megőrzi eredeti formáját. A gyermek elemek kezelésével a kód biztosítja, hogy az XML fa minden része megfelelően legyen reprezentálva és hierarchikusan jól strukturált legyen.
+
+A \texttt{writeDocumentToFile} metódus egy \texttt{Transformer} objektumot használ az XML dokumentum fájlba írásához, tiszteletben tartva az XML formázási szabályokat. Ez a metódus lehetővé teszi egy új XML dokumentumok mentését. A kiírási folyamat során a kód biztosítja az XML szabványoknak megfelelő indentálást és formázást, ami olvashatóbbá és könnyebben értelmezhetővé teszi a kimenetet.
+
+A kivételkezelés a kódban biztosítja, hogy az XML olvasás vagy írás közben fellépő hibák megfelelően kezelve legyenek, megelőzve ezzel a program összeomlását.\\
 
 \begin{lstlisting}[caption={DOMWriteKLNSPG.java} olvasó program, language=Java]
 import org.w3c.dom.*;
@@ -977,7 +1000,7 @@ import java.io.*;
 
 public class DOMWriteKLNSPG
 {
-	
+	// Main metodus
 	public static void main(String[] args)
 	{
 		try 
@@ -998,38 +1021,45 @@ public class DOMWriteKLNSPG
 		}
 	}
 	
+	// Konzolra kiirato metodus XML formatumban
 	private static void printNode(Node node, String indent) 
 	{
 		if (node.getNodeType() == Node.ELEMENT_NODE) 
 		{
-			System.out.print(indent + node.getNodeName());
+			System.out.print(indent + "<" + node.getNodeName());
+			
 			if (node.hasAttributes()) 
 			{
 				NamedNodeMap nodeMap = node.getAttributes();
 				for (int i = 0; i < nodeMap.getLength(); i++) 
 				{
 					Node attr = nodeMap.item(i);
-					System.out.print(attr.getNodeName() + "=" + attr.getNodeValue() + (i < nodeMap.getLength() - 1 ? ", " : ""));
+					System.out.print(" " + attr.getNodeName() + "=\"" + attr.getNodeValue() + "\"");
 				}
 			}
 			
-			System.out.println(" start");
-			
 			NodeList children = node.getChildNodes();
-			String childIndent = indent + "    ";
-			for (int i = 0; i < children.getLength(); i++) 
-			printNode(children.item(i), childIndent);
-			
-			System.out.println(indent + node.getNodeName() + " end");
+			if (children.getLength() == 0)
+			System.out.println("/>");
+			else 
+			{
+				System.out.println(">");
+				String childIndent = indent + "    ";
+				for (int i = 0; i < children.getLength(); i++)
+				printNode(children.item(i), childIndent);
+				
+				System.out.println(indent + "</" + node.getNodeName() + ">");
+			}
 		} 
 		else if (node.getNodeType() == Node.TEXT_NODE) 
 		{
 			String content = node.getTextContent().trim();
-			if (!content.isEmpty()) 
+			if (!content.isEmpty())
 			System.out.println(indent + content);
 		}
-	}
+	}    
 	
+	// Faljba kiirato metodus
 	private static void writeDocumentToFile(Document doc, String filename) throws TransformerException 
 	{
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();

@@ -9,7 +9,7 @@ import java.io.*;
 
 public class DOMWriteKLNSPG
 {
-
+    // Main metódus
     public static void main(String[] args)
     {
         try 
@@ -30,38 +30,45 @@ public class DOMWriteKLNSPG
         }
     }
 
+    // Konzolra kiírató metódus XML formátumban
     private static void printNode(Node node, String indent) 
     {
         if (node.getNodeType() == Node.ELEMENT_NODE) 
         {
-            System.out.print(indent + node.getNodeName());
+            System.out.print(indent + "<" + node.getNodeName());
+    
             if (node.hasAttributes()) 
             {
                 NamedNodeMap nodeMap = node.getAttributes();
                 for (int i = 0; i < nodeMap.getLength(); i++) 
                 {
                     Node attr = nodeMap.item(i);
-                    System.out.print(attr.getNodeName() + "=" + attr.getNodeValue() + (i < nodeMap.getLength() - 1 ? ", " : ""));
+                    System.out.print(" " + attr.getNodeName() + "=\"" + attr.getNodeValue() + "\"");
                 }
             }
-
-            System.out.println(" start");
-
+    
             NodeList children = node.getChildNodes();
-            String childIndent = indent + "    ";
-            for (int i = 0; i < children.getLength(); i++) 
-                printNode(children.item(i), childIndent);
+            if (children.getLength() == 0)
+                System.out.println("/>");
+            else 
+            {
+                System.out.println(">");
+                String childIndent = indent + "    ";
+                for (int i = 0; i < children.getLength(); i++)
+                    printNode(children.item(i), childIndent);
 
-            System.out.println(indent + node.getNodeName() + " end");
+                System.out.println(indent + "</" + node.getNodeName() + ">");
+            }
         } 
         else if (node.getNodeType() == Node.TEXT_NODE) 
         {
             String content = node.getTextContent().trim();
-            if (!content.isEmpty()) 
+            if (!content.isEmpty())
                 System.out.println(indent + content);
         }
-    }
+    }    
 
+    // Fájlba kiírató metódus
     private static void writeDocumentToFile(Document doc, String filename) throws TransformerException 
     {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
