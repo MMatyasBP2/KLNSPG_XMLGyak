@@ -1,0 +1,4 @@
+Hallgató neve: Martinák Mátyás
+Születési év: 2002-10-10
+Szak:  Programtervezõ Informatikus 
+

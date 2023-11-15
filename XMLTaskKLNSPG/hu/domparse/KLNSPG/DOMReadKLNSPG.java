@@ -5,17 +5,19 @@ import java.io.*;
 
 public class DOMReadKLNSPG
 {
-
-    public static void main(String[] args)
+    // Main metódus
+    public static void main(String[] args) 
     {
-
-        try
+        try 
         {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.parse(new File("C:\\projects\\KLNSPG_XMLGyak\\XMLTaskKLNSPG\\XMLKLNSPG.xml"));
 
             document.getDocumentElement().normalize();
+            System.out.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+            System.out.println("<Zoo_KLNSPG xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"XMLSchemaKLNSPG.xsd\">\n");
+
             readEmployees(document);
             readSites(document);
             readHabitats(document);
@@ -24,56 +26,46 @@ public class DOMReadKLNSPG
             readEats(document);
             readUsers(document);
 
-        }
-        catch (ParserConfigurationException e)
-        {
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        catch (SAXException e)
-        {
-            e.printStackTrace();
-        }
-        catch (Exception e)
+            System.out.println("\n</Zoo_KLNSPG>");
+        } 
+        catch (ParserConfigurationException | IOException | SAXException e)
         {
             e.printStackTrace();
         }
     }
 
-    private static void readEmployees(Document document)
+    // Employee Node beolvasó metódus
+    private static void readEmployees(Document document) 
     {
         NodeList employeeList = document.getElementsByTagName("Employee");
-        for (int temp = 0; temp < employeeList.getLength(); temp++)
+        for (int temp = 0; temp < employeeList.getLength(); temp++) 
         {
             Node node = employeeList.item(temp);
-            if (node.getNodeType() == Node.ELEMENT_NODE)
+            if (node.getNodeType() == Node.ELEMENT_NODE) 
             {
                 Element eElement = (Element) node;
                 String empId = eElement.getAttribute("emp_id");
                 String firstName = eElement.getElementsByTagName("first_name").item(0).getTextContent();
                 String lastName = eElement.getElementsByTagName("last_name").item(0).getTextContent();
                 String sex = eElement.getElementsByTagName("sex").item(0).getTextContent();
-                // ... other data extraction ...
 
-                System.out.println("    Employee {emp_id=" + empId + "} start");
+                System.out.println("    <Employee emp_id=\"" + empId + "\">");
                 printElement("first_name", firstName);
                 printElement("last_name", lastName);
                 printElement("sex", sex);
-                System.out.println("    Employee end");
+                System.out.println("    </Employee>");
             }
         }
     }
 
-    private static void readSites(Document document)
+    // Site Node beolvasó metódus
+    private static void readSites(Document document) 
     {
         NodeList siteList = document.getElementsByTagName("Site");
-        for (int temp = 0; temp < siteList.getLength(); temp++)
+        for (int temp = 0; temp < siteList.getLength(); temp++) 
         {
             Node node = siteList.item(temp);
-            if (node.getNodeType() == Node.ELEMENT_NODE)
+            if (node.getNodeType() == Node.ELEMENT_NODE) 
             {
                 Element eElement = (Element) node;
                 String siteId = eElement.getAttribute("site_id");
@@ -83,22 +75,23 @@ public class DOMReadKLNSPG
                 String area = eElement.getElementsByTagName("area").item(0).getTextContent();
                 String openingHours = eElement.getElementsByTagName("opening_hours").item(0).getTextContent();
         
-                System.out.println("    Site {site_id=" + siteId + ", Works=" + works + ", Manage=" + manage + "} start");
+                System.out.println("    <Site site_id=\"" + siteId + "\" Works=\"" + works + "\" Manage=\"" + manage + "\">");
                 printElement("name", name);
                 printElement("area", area);
                 printElement("opening_hours", openingHours);
-                System.out.println("    Site end");
+                System.out.println("    </Site>");
             }
         }
-    }        
-
-    private static void readHabitats(Document document)
+    }
+    
+    // Habitat Node beolvasó metódus
+    private static void readHabitats(Document document) 
     {
         NodeList habitatList = document.getElementsByTagName("Habitat");
-        for (int temp = 0; temp < habitatList.getLength(); temp++)
+        for (int temp = 0; temp < habitatList.getLength(); temp++) 
         {
             Node node = habitatList.item(temp);
-            if (node.getNodeType() == Node.ELEMENT_NODE)
+            if (node.getNodeType() == Node.ELEMENT_NODE) 
             {
                 Element eElement = (Element) node;
                 String habitatId = eElement.getAttribute("habitat_id");
@@ -106,90 +99,94 @@ public class DOMReadKLNSPG
                 String name = eElement.getElementsByTagName("name").item(0).getTextContent();
                 String location = eElement.getElementsByTagName("location").item(0).getTextContent();
                 String description = eElement.getElementsByTagName("description").item(0).getTextContent();
-    
-                System.out.println("    Habitat {habitat_id=" + habitatId + ", Occupy=" + occupy + "} start");
+        
+                System.out.println("    <Habitat habitat_id=\"" + habitatId + "\" Occupy=\"" + occupy + "\">");
                 printElement("name", name);
                 printElement("location", location);
                 printElement("description", description);
-                System.out.println("    Habitat end");
+                System.out.println("    </Habitat>");
             }
         }
     }
-
-    private static void readAnimals(Document document)
+    
+    // Animal Node beolvasó metódus
+    private static void readAnimals(Document document) 
     {
         NodeList animalList = document.getElementsByTagName("Animal");
-        for (int temp = 0; temp < animalList.getLength(); temp++)
+        for (int temp = 0; temp < animalList.getLength(); temp++) 
         {
             Node node = animalList.item(temp);
-            if (node.getNodeType() == Node.ELEMENT_NODE)
+            if (node.getNodeType() == Node.ELEMENT_NODE) 
             {
                 Element eElement = (Element) node;
                 String animalId = eElement.getAttribute("animal_id");
                 String name = eElement.getElementsByTagName("name").item(0).getTextContent();
                 String racial = eElement.getElementsByTagName("racial").item(0).getTextContent();
                 String description = eElement.getElementsByTagName("description").item(0).getTextContent();
-        
-                System.out.println("    Animal {animal_id=" + animalId + "} start");
+            
+                System.out.println("    <Animal animal_id=\"" + animalId + "\">");
                 printElement("name", name);
                 printElement("racial", racial);
                 printElement("description", description);
-                System.out.println("    Animal end");
+                System.out.println("    </Animal>");
             }
         }
     }
-    
-    private static void readFoods(Document document)
+
+    // Food Node beolvasó metódus
+    private static void readFoods(Document document) 
     {
         NodeList foodList = document.getElementsByTagName("Food");
-        for (int temp = 0; temp < foodList.getLength(); temp++)
+        for (int temp = 0; temp < foodList.getLength(); temp++) 
         {
             Node node = foodList.item(temp);
-            if (node.getNodeType() == Node.ELEMENT_NODE)
+            if (node.getNodeType() == Node.ELEMENT_NODE) 
             {
                 Element eElement = (Element) node;
                 String foodId = eElement.getAttribute("food_id");
                 String name = eElement.getElementsByTagName("name").item(0).getTextContent();
                 String isDelicious = eElement.getElementsByTagName("is_delicious").item(0).getTextContent();
                 String company = eElement.getElementsByTagName("company").item(0).getTextContent();
-        
-                System.out.println("    Food {food_id=" + foodId + "} start");
+            
+                System.out.println("    <Food food_id=\"" + foodId + "\">");
                 printElement("name", name);
                 printElement("is_delicious", isDelicious);
                 printElement("company", company);
-                System.out.println("    Food end");
+                System.out.println("    </Food>");
             }
         }
-    }    
-
-    private static void readEats(Document document)
+    }
+    
+    // Eat Node beolvasó metódus
+    private static void readEats(Document document) 
     {
         NodeList eatList = document.getElementsByTagName("Eat");
-        for (int temp = 0; temp < eatList.getLength(); temp++)
+        for (int temp = 0; temp < eatList.getLength(); temp++) 
         {
             Node node = eatList.item(temp);
-            if (node.getNodeType() == Node.ELEMENT_NODE)
+            if (node.getNodeType() == Node.ELEMENT_NODE) 
             {
                 Element eElement = (Element) node;
                 String eatId = eElement.getAttribute("eat_id");
                 String foodEat = eElement.getAttribute("FoodEat");
                 String animalEat = eElement.getAttribute("AnimalEat");
                 String feedingTime = eElement.getElementsByTagName("feeding_time").item(0).getTextContent();
-        
-                System.out.println("    Eat {eat_id=" + eatId + ", FoodEat=" + foodEat + ", AnimalEat=" + animalEat + "} start");
+            
+                System.out.println("    <Eat eat_id=\"" + eatId + "\" FoodEat=\"" + foodEat + "\" AnimalEat=\"" + animalEat + "\">");
                 printElement("feeding_time", feedingTime);
-                System.out.println("    Eat end");
+                System.out.println("    </Eat>");
             }
         }
-    }    
-
+    }
+    
+    // User Node beolvasó metódus
     private static void readUsers(Document document)
     {
         NodeList userList = document.getElementsByTagName("User");
-        for (int temp = 0; temp < userList.getLength(); temp++)
+        for (int temp = 0; temp < userList.getLength(); temp++) 
         {
             Node node = userList.item(temp);
-            if (node.getNodeType() == Node.ELEMENT_NODE)
+            if (node.getNodeType() == Node.ELEMENT_NODE) 
             {
                 Element eElement = (Element) node;
                 String userId = eElement.getAttribute("user_id");
@@ -203,8 +200,8 @@ public class DOMReadKLNSPG
                 String city = eElement.getElementsByTagName("city").item(0).getTextContent();
                 String street = eElement.getElementsByTagName("street").item(0).getTextContent();
                 String number = eElement.getElementsByTagName("number").item(0).getTextContent();
-        
-                System.out.println("    User {user_id=" + userId + ", Favor=" + favor + "} start");
+            
+                System.out.println("    <User user_id=\"" + userId + "\" Favor=\"" + favor + "\">");
                 printElement("username", username);
                 printElement("password", password);
                 printElement("sex", sex);
@@ -214,15 +211,14 @@ public class DOMReadKLNSPG
                 printElement("city", city);
                 printElement("street", street);
                 printElement("number", number);
-                System.out.println("    User end");
+                System.out.println("    </User>");
             }
         }
     }
-
+    
+    // Elem kiírató metódus
     private static void printElement(String elementName, String content)
     {
-        System.out.println("        " + elementName + " start");
-        System.out.println("            " + content);
-        System.out.println("        " + elementName + " end");
-    }    
+        System.out.println("        <" + elementName + ">" + content + "</" + elementName + ">");
+    }
 }
