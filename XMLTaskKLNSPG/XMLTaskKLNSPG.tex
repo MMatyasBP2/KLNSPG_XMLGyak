@@ -14,6 +14,8 @@
 \usepackage{color}
 \usepackage{listingsutf8}
 
+\renewcommand{\lstlistingname}{Programkód}
+
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{HTML}{C42043}
@@ -517,7 +519,7 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 \section{Adatolvasás}
 \indent\indent A kód egy Java alapú XML feldolgozó program, amely a DOM (Document Object Model) parserét használja. A DOM parser a teljes XML dokumentumot memóriába tölti, ami gyors hozzáférést biztosít az elemekhez, de nagyobb dokumentumok esetén jelentős memóriaigényt jelenthet. A program beolvassa az XML fájlt, normalizálja azt, és különböző függvények segítségével feldolgozza az XML elemeket, melyek az 'Employees', 'Sites', 'Habitats'. Minden elemcsoport feldolgozása külön függvényben történik, ami javítja a kód olvashatóságát és karbantarthatóságát. Hibakezelés is implementálva van a fájlbeolvasás és parse-lás során.\\
 
-\begin{lstlisting}[caption={DOMReadKLNSPG.java} olvasó program, language=Java]
+\begin{lstlisting}[caption={DOMReadKLNSPG.java} adatolvasó program, language=Java]
 	import javax.xml.parsers.*;
 	import org.xml.sax.SAXException;
 	import org.w3c.dom.*;
@@ -745,9 +747,9 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 \end{lstlisting}
 
 \section{Adatmódosítás}
-\indent\indent Ez a Java program, a DOMModifyKLNSPG, egy XML fájlt olvas be és módosítja azt a DOM (Document Object Model) API segítségével. Az XML fájl, amely egy állatkert adatait tartalmazza, egy előre meghatározott útvonalon található, és a DocumentBuilder osztály segítségével parse-olják. A program három fő részre oszlik: \texttt{modifyEmployees}, \texttt{modifySites}, és \texttt{modifyAnimals} metódusokra, melyek különböző XML elemeket módosítanak. Az modifyEmployees metódus az Employee elemek \texttt{emp\_id} attribútumát módosítja, minden \texttt{emp\_id} elé \texttt{,,EMP\_''} előtagot illesztve. A \texttt{modifySites} metódus a Site elemek \texttt{visitor\_capacity} attribútumát állítja be ,,5000''-re, amely valószínűleg a látogatók maximális számát jelenti. A \texttt{modifyAnimals} metódus a Medve \texttt{racial} értékkel rendelkező Animal elemek \texttt{description} elemének szövegét módosítja ,,A medve eros es bator'' szövegre. A módosítások után a program egy \textit{Transformer} segítségével visszaalakítja és kiírja a módosított DOM-ot XML formátumban. Az XML kiírás során a \textit{Transformer} beállításai biztosítják a formázott, olvasható kimenetet, az \texttt{OutputKeys.INDENT} beállítás segítségével.\\
+\indent\indent Ez a Java program, a DOMModifyKLNSPG, egy XML fájlt olvas be és módosítja azt a DOM (Document Object Model) API segítségével. Az XML fájl, amely egy állatkert adatait tartalmazza, egy előre meghatározott útvonalon található, és a \texttt{DocumentBuilder} osztály segítségével parse-oljuk. A program három fő részre oszlik: \texttt{modifyEmployees}, \texttt{modifySites}, és \texttt{modifyAnimals} metódusokra, melyek különböző XML elemeket módosítanak. Az \texttt{modifyEmployees} metódus az Employee elemek \texttt{emp\_id} attribútumát módosítja, minden \texttt{emp\_id} elé \texttt{,,EMP\_''} előtagot illesztve. A \texttt{modifySites} metódus a Site elemek \texttt{visitor\_capacity} attribútumát állítja be ,,5000''-re, amely a látogatók maximális számát jelenti. A \texttt{modifyAnimals} metódus a \textit{Medve} \texttt{racial} értékkel rendelkező Animal elemek \texttt{description} elemének szövegét módosítja \textbf{,,A medve eros es bator''} szövegre. A módosítások után a program egy \texttt{Transformer} segítségével visszaalakítja és kiírja a módosított DOM-ot XML formátumban. Az XML kiírás során a \texttt{Transformer} beállításai biztosítják a formázott, olvasható kimenetet, az \texttt{OutputKeys.INDENT} beállítás segítségével.\\
 
-\begin{lstlisting}[caption={DOMQModifyKLNSPG.java} olvasó program, language=Java]
+\begin{lstlisting}[caption={DOMQModifyKLNSPG.java} adatmódosító program, language=Java]
 	import javax.xml.parsers.*;
 	import javax.xml.transform.OutputKeys;
 	import javax.xml.transform.Transformer;
@@ -829,9 +831,9 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 \end{lstlisting}
 
 \section{Adatlekérdezés}
-\indent\indent A program a Java \texttt{DOM Parser}-t használja XML fájlok feldolgozására, ami lehetővé teszi a XML elemek olvasását és manipulálását egy objektumorientált módon. A kód, az XML fájlt, a \texttt{File} objektumon keresztül tölti be, biztosítva ezzel a fájl elérését és kezelését. A \texttt{DocumentBuilderFactory} és \texttt{DocumentBuilder} osztályok használata a fájl DOM reprezentációjának létrehozásához szükséges, ami egy strukturált, fa-szerű modellt biztosít az XML adatok számára. A program minden egyes lekérdezést egy for ciklus segítségével hajt végre, ahol a \texttt{getElementsByTagName} metódus segítségével specifikus XML elemeket keres. Az elemek feldolgozása során a \texttt{Node} és \texttt{Element} interfészeket használja, amelyek lehetővé teszik az egyes elemek attribútumainak és tartalmának elérését. A lekérdezések eredményét egy \texttt{StringBuilder} objektumba gyűjti, amely hatékonyan kezeli a nagy mennyiségű string összefűzését. A kód, az összegyűjtött adatokat XML-szerű formátumban állítja elő.\\
+\indent\indent A program a Java \texttt{DOM Parser}-t használja XML fájlunk feldolgozására, ami lehetővé teszi a XML elemek olvasását és manipulálását egy objektumorientált módon. A kód, az XML fájlt, a \texttt{File} objektumon keresztül tölti be, biztosítva ezzel a fájl elérését és kezelését. A \texttt{DocumentBuilderFactory} és \texttt{DocumentBuilder} osztályok használata a fájl DOM reprezentációjának létrehozásához szükséges, ami egy strukturált, fa-szerű modellt biztosít az XML adatok számára. A program minden egyes lekérdezést egy for ciklus segítségével hajt végre, ahol a \texttt{getElementsByTagName} metódus segítségével specifikus XML elemeket keres. Az elemek feldolgozása során a \texttt{Node} és \texttt{Element} interfészeket használja, amelyek lehetővé teszik az egyes elemek attribútumainak és tartalmának elérését. A lekérdezések eredményét egy \texttt{StringBuilder} objektumba gyűjti, amely hatékonyan kezeli a nagy mennyiségű stringek összefűzését. A kód, az összegyűjtött adatokat XML-szerű formátumban állítja elő.\\
 
-\begin{lstlisting}[caption={DOMQueryKLNSPG.java} olvasó program, language=Java]
+\begin{lstlisting}[caption={DOMQueryKLNSPG.java} adatlekérdező program, language=Java]
 import java.io.*;
 import javax.xml.parsers.*;
 import org.w3c.dom.*;
@@ -980,7 +982,7 @@ public class DOMQueryKLNSPG
 \end{lstlisting}
 
 \section{Adatírás}
-\indent\indent A kód fő funkciója, hogy beolvassa és kiírja az XML tartalmakat a konzolra és fájlba is. A main metódusban az \textit{XMLKLNSPG} fájlt olvassa be a megadott útvonalról, használva a \\ \texttt{DocumentBuilderFactory} és \texttt{DocumentBuilder} osztályokat az XML struktúra elemzéséhez. Ezután normalizálja a dokumentumot a \texttt{normalize} metódussal, ami segít a DOM fa struktúrájának rendezésében.
+\indent\indent A kód fő funkciója, hogy beolvassa és kiírja az XML tartalmakat a konzolra és fájlba is. A \texttt{main} metódusban az \textit{XMLKLNSPG} fájlt olvassa be a megadott útvonalról, használva a \\ \texttt{DocumentBuilderFactory} és \texttt{DocumentBuilder} osztályokat az XML struktúra elemzéséhez. Ezután normalizálja a dokumentumot a \texttt{normalize} metódussal, ami segít a DOM fa struktúrájának rendezésében.
 
 A \texttt{printNode} metódus rekurzívan bejárja a DOM fát, és az elemeket XML formátumban írja ki a konzolra, beleértve az attribútumokat és szöveges tartalmakat is. A kód gondosan kezeli az attribútumokat és a gyermek elemeket, így az XML struktúra a konzolra írásakor is megőrzi eredeti formáját. A gyermek elemek kezelésével a kód biztosítja, hogy az XML fa minden része megfelelően legyen reprezentálva és hierarchikusan jól strukturált legyen.
 
@@ -988,7 +990,7 @@ A \texttt{writeDocumentToFile} metódus egy \texttt{Transformer} objektumot hasz
 
 A kivételkezelés a kódban biztosítja, hogy az XML olvasás vagy írás közben fellépő hibák megfelelően kezelve legyenek, megelőzve ezzel a program összeomlását.\\
 
-\begin{lstlisting}[caption={DOMWriteKLNSPG.java} olvasó program, language=Java]
+\begin{lstlisting}[caption={DOMWriteKLNSPG.java} adatíró program, language=Java]
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
