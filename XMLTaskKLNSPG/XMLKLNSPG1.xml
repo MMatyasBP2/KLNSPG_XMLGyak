@@ -12,6 +12,16 @@
         <birth_date>1979-11-02</birth_date>
                 
         <sex>M</sex>
+                
+        <posts>
+                        
+            <post>Kisallat gondozo</post>
+                        
+            <post>Eteto</post>
+                        
+            <post>Szemetszedo</post>
+                    
+        </posts>
             
     </Employee>
         
@@ -24,6 +34,16 @@
         <birth_date>1954-12-06</birth_date>
                 
         <sex>M</sex>
+                
+        <posts>
+                        
+            <post>Terrarium takarito</post>
+                        
+            <post>Gondnok</post>
+                        
+            <post>Jegyszedo</post>
+                    
+        </posts>
             
     </Employee>
         
@@ -36,6 +56,16 @@
         <birth_date>2000-11-04</birth_date>
                 
         <sex>F</sex>
+                
+        <posts>
+                        
+            <post>Gondozo</post>
+                        
+            <post>Eteto</post>
+                        
+            <post>Jegyszedo</post>
+                    
+        </posts>
             
     </Employee>
         
@@ -143,7 +173,15 @@
                 
         <is_delicious>false</is_delicious>
                 
-        <company>Family Frost</company>
+        <companies>
+                        
+            <company>Family Frost</company>
+                        
+            <company>Magyar Zoldseg</company>
+                        
+            <company>Eszkimo</company>
+                    
+        </companies>
             
     </Food>
         
@@ -153,7 +191,15 @@
                 
         <is_delicious>true</is_delicious>
                 
-        <company>Magyar Zoldseg</company>
+        <companies>
+                        
+            <company>Allati zoldseg/gyumolcs</company>
+                        
+            <company>Magyar Zoldseg</company>
+                        
+            <company>Felix allati eledel</company>
+                    
+        </companies>
             
     </Food>
         
@@ -163,7 +209,15 @@
                 
         <is_delicious>true</is_delicious>
                 
-        <company>Family Frost</company>
+        <companies>
+                        
+            <company>Frosty food</company>
+                        
+            <company>Eszkimo</company>
+                        
+            <company>Magyar zoldseg</company>
+                    
+        </companies>
             
     </Food>
         

@@ -12,6 +12,7 @@
 
   <!-- Employee saját típus-->
   <xs:element name="birth_date" type="dateType"/>
+  <xs:element name="posts" type="postsType"/>
 
   <!-- Site saját típusok-->
   <xs:element name="area" type="xs:integer"/>
@@ -25,7 +26,7 @@
 
   <!-- Food saját típus-->
   <xs:element name="is_delicious" type="xs:boolean"/>
-  <xs:element name="company" type="xs:string"/>
+  <xs:element name="companies" type="companyType"/>
 
   <!-- Eat saját típus-->
   <xs:element name="feeding_time" type="timeListType"/>
@@ -57,6 +58,16 @@
     <xs:list itemType="xs:time"/>
   </xs:simpleType>
 
+  <xs:simpleType name="postAttributeType">
+    <xs:restriction base="xs:string">
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="companyAttributeType">
+    <xs:restriction base="xs:string">
+    </xs:restriction>
+  </xs:simpleType>
+
   <!-- Complex types-->
   <xs:complexType name="employeeType">
     <xs:sequence>
@@ -64,8 +75,16 @@
       <xs:element ref="last_name"/>
       <xs:element ref="birth_date"/>
       <xs:element ref="sex"/>
+      <xs:element ref="posts"/>
     </xs:sequence>
     <xs:attribute name="emp_id" type="xs:integer" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="postsType">
+    <xs:sequence>
+      <xs:element name="post" type="xs:string" minOccurs="1" maxOccurs="3"/>
+    </xs:sequence>
+      <xs:attribute name="post" type="postAttributeType"/>
   </xs:complexType>
 
   <xs:complexType name="siteType">
@@ -102,9 +121,16 @@
     <xs:sequence>
       <xs:element ref="name"/>
       <xs:element ref="is_delicious"/>
-      <xs:element ref="company"/>
+      <xs:element ref="companies"/>
     </xs:sequence>
     <xs:attribute name="food_id" type="xs:integer" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="companyType">
+    <xs:sequence>
+      <xs:element name="company" type="xs:string" minOccurs="1" maxOccurs="3"/>
+    </xs:sequence>
+      <xs:attribute name="company" type="companyAttributeType"/>
   </xs:complexType>
 
   <xs:complexType name="eatType">

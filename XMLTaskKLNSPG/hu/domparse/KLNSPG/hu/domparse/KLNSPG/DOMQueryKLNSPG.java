@@ -1,3 +1,4 @@
+package hu.domparse.KLNSPG;
 import java.io.*;
 import javax.xml.parsers.*;
 import org.w3c.dom.*;
@@ -5,7 +6,7 @@ import org.xml.sax.SAXException;
 
 public class DOMQueryKLNSPG
 {
-    // Main metódus
+    // Main metodus
     public static void main(String argv[]) throws SAXException, IOException, ParserConfigurationException 
     {
         File xmlFile = new File("C:\\projects\\KLNSPG_XMLGyak\\XMLTaskKLNSPG\\XMLKLNSPG.xml");
@@ -18,7 +19,7 @@ public class DOMQueryKLNSPG
 
         StringBuilder outputBuilder = new StringBuilder();
 
-        // Lekérdezés a férfi Employee-kre
+        // Lekerdezes a ferfi Employee-kre
         NodeList employeeList = doc.getElementsByTagName("Employee");
         outputBuilder.append("<Employees>\n");
         for (int i = 0; i < employeeList.getLength(); i++) 
@@ -28,22 +29,46 @@ public class DOMQueryKLNSPG
             {
                 Element element = (Element) node;
                 String sex = element.getElementsByTagName("sex").item(0).getTextContent();
-                if (sex.equals("M")) {
+                if (sex.equals("M")) 
+                {
                     String empId = element.getAttribute("emp_id");
                     String firstName = element.getElementsByTagName("first_name").item(0).getTextContent();
                     String lastName = element.getElementsByTagName("last_name").item(0).getTextContent();
                     String birthDate = element.getElementsByTagName("birth_date").item(0).getTextContent();
-                    outputBuilder.append(String.format("  <Employee ID=\"%s\">\n", empId));
-                    outputBuilder.append(String.format("    <Name>%s %s</Name>\n", firstName, lastName));
-                    outputBuilder.append(String.format("    <BirthDate>%s</BirthDate>\n", birthDate));
-                    outputBuilder.append(String.format("    <Sex>%s</Sex>\n", sex));
+                    outputBuilder.append(String.format("  <Employee emp_id=\"%s\">\n", empId));
+                    outputBuilder.append(String.format("    <first_name>%s</first_name>\n", firstName));
+                    outputBuilder.append(String.format("    <last_name>%s</last_name>\n", lastName));
+                    outputBuilder.append(String.format("    <birth_date>%s</birth_date>\n", birthDate));
+                    outputBuilder.append(String.format("    <sex>%s</sex>\n", sex));
+
+                    // Posts es azok elemeinek kezelese
+                    NodeList postsList = element.getElementsByTagName("posts");
+                    if (postsList.getLength() > 0) {
+                        Node postsNode = postsList.item(0);
+                        if (postsNode.getNodeType() == Node.ELEMENT_NODE) 
+                        {
+                            outputBuilder.append("    <posts>\n");
+                            NodeList postList = ((Element)postsNode).getElementsByTagName("post");
+                            for (int j = 0; j < postList.getLength(); j++) 
+                            {
+                                Node postNode = postList.item(j);
+                                if (postNode.getNodeType() == Node.ELEMENT_NODE) 
+                                {
+                                    String post = postNode.getTextContent();
+                                    outputBuilder.append(String.format("      <post>%s</post>\n", post));
+                                }
+                            }
+                            outputBuilder.append("    </posts>\n");
+                        }
+                    }
+
                     outputBuilder.append("  </Employee>\n");
                 }
             }
         }
         outputBuilder.append("</Employees>\n");
 
-        // Lekérdezés a legnagyobb m^3-rű Site-ra
+        // Lekerdezes a legnagyobb m^3-ru Site-ra
         NodeList siteList = doc.getElementsByTagName("Site");
         int maxArea = 0;
         Element maxAreaElement = null;
@@ -61,7 +86,8 @@ public class DOMQueryKLNSPG
                 }
             }
         }
-        if (maxAreaElement != null) {
+        if (maxAreaElement != null) 
+        {
             String siteId = maxAreaElement.getAttribute("site_id");
             String name = maxAreaElement.getElementsByTagName("name").item(0).getTextContent();
             outputBuilder.append("\n<LargestSite>\n");
@@ -72,7 +98,7 @@ public class DOMQueryKLNSPG
             outputBuilder.append("</LargestSite>\n");
         }
 
-        // Lekérdezés az 1999 után született Employee-kre
+        // Lekerdezes az 1999 utan szuletett Employee-kre
         outputBuilder.append("\n<EmployeesBornAfter1999>\n");
         for (int i = 0; i < employeeList.getLength(); i++) 
         {
@@ -82,20 +108,46 @@ public class DOMQueryKLNSPG
                 Element element = (Element) node;
                 String birthDate = element.getElementsByTagName("birth_date").item(0).getTextContent();
                 int birthYear = Integer.parseInt(birthDate.substring(0, 4));
-                if (birthYear > 1999) {
+                if (birthYear > 1999) 
+                {
                     String empId = element.getAttribute("emp_id");
                     String firstName = element.getElementsByTagName("first_name").item(0).getTextContent();
                     String lastName = element.getElementsByTagName("last_name").item(0).getTextContent();
-                    outputBuilder.append(String.format("  <Employee ID=\"%s\">\n", empId));
-                    outputBuilder.append(String.format("    <Name>%s %s</Name>\n", firstName, lastName));
-                    outputBuilder.append(String.format("    <BirthDate>%s</BirthDate>\n", birthDate));
+                    String sex = element.getElementsByTagName("sex").item(0).getTextContent();
+                    
+                    outputBuilder.append(String.format("  <Employee emp_id=\"%s\">\n", empId));
+                    outputBuilder.append(String.format("    <first_name>%s</first_name>\n", firstName));
+                    outputBuilder.append(String.format("    <last_name>%s</last_name>\n", lastName));
+                    outputBuilder.append(String.format("    <birth_date>%s</birth_date>\n", birthDate));
+                    outputBuilder.append(String.format("    <sex>%s</sex>\n", sex));
+
+                    // Posts es azok elemeinek kezelese
+                    NodeList postsList = element.getElementsByTagName("posts");
+                    if (postsList.getLength() > 0) {
+                        Node postsNode = postsList.item(0);
+                        if (postsNode.getNodeType() == Node.ELEMENT_NODE) 
+                        {
+                            outputBuilder.append("    <posts>\n");
+                            NodeList postList = ((Element)postsNode).getElementsByTagName("post");
+                            for (int j = 0; j < postList.getLength(); j++) {
+                                Node postNode = postList.item(j);
+                                if (postNode.getNodeType() == Node.ELEMENT_NODE) 
+                                {
+                                    String post = postNode.getTextContent();
+                                    outputBuilder.append(String.format("      <post>%s</post>\n", post));
+                                }
+                            }
+                            outputBuilder.append("    </posts>\n");
+                        }
+                    }
+
                     outputBuilder.append("  </Employee>\n");
                 }
             }
         }
         outputBuilder.append("</EmployeesBornAfter1999>\n");
 
-        // Lekérdezés a "Medve park" nevű Habitat description-jére
+        // Lekerdezes a "Medve park" nevu Habitat description-jere
         NodeList habitatList = doc.getElementsByTagName("Habitat");
         outputBuilder.append("\n<MedveParkDescription>\n");
         for (int i = 0; i < habitatList.getLength(); i++) 
@@ -114,7 +166,7 @@ public class DOMQueryKLNSPG
         }
         outputBuilder.append("</MedveParkDescription>\n");
 
-        // Lekérdezés a 3. id-jú User lakcímére
+        // Lekerdezes a 3. id-ju User lakcimere
         NodeList userList = doc.getElementsByTagName("User");
         outputBuilder.append("\n<UserAddress id=\"3\">\n");
         for (int i = 0; i < userList.getLength(); i++) 

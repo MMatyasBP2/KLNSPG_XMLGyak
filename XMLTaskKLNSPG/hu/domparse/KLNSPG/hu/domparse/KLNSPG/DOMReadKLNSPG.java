@@ -1,3 +1,4 @@
+package hu.domparse.KLNSPG;
 import javax.xml.parsers.*;
 import org.xml.sax.SAXException;
 import org.w3c.dom.*;
@@ -5,7 +6,7 @@ import java.io.*;
 
 public class DOMReadKLNSPG
 {
-    // Main metódus
+    // Main metodus
     public static void main(String[] args) 
     {
         try 
@@ -34,7 +35,7 @@ public class DOMReadKLNSPG
         }
     }
 
-    // Employee Node beolvasó metódus
+    // Employee Node beolvaso metodus
     private static void readEmployees(Document document) 
     {
         NodeList employeeList = document.getElementsByTagName("Employee");
@@ -47,18 +48,37 @@ public class DOMReadKLNSPG
                 String empId = eElement.getAttribute("emp_id");
                 String firstName = eElement.getElementsByTagName("first_name").item(0).getTextContent();
                 String lastName = eElement.getElementsByTagName("last_name").item(0).getTextContent();
+                String birthDate = eElement.getElementsByTagName("birth_date").item(0).getTextContent();
                 String sex = eElement.getElementsByTagName("sex").item(0).getTextContent();
 
                 System.out.println("    <Employee emp_id=\"" + empId + "\">");
                 printElement("first_name", firstName);
                 printElement("last_name", lastName);
+                printElement("birth_date", birthDate);
                 printElement("sex", sex);
+
+                // Tobberteku tulajdonsag lekezelese
+                if (eElement.getElementsByTagName("posts").getLength() > 0) 
+                {
+                    NodeList posts = eElement.getElementsByTagName("posts").item(0).getChildNodes();
+                    System.out.println("        <posts>");
+                    for (int i = 0; i < posts.getLength(); i++) {
+                        Node postNode = posts.item(i);
+                        if (postNode.getNodeType() == Node.ELEMENT_NODE) 
+                        {
+                            Element postElement = (Element) postNode;
+                            System.out.println("            <post>" + postElement.getTextContent() + "</post>");
+                        }
+                    }
+                    System.out.println("        </posts>");
+                }
+
                 System.out.println("    </Employee>");
             }
         }
     }
 
-    // Site Node beolvasó metódus
+    // Site Node beolvaso metodus
     private static void readSites(Document document) 
     {
         NodeList siteList = document.getElementsByTagName("Site");
@@ -84,7 +104,7 @@ public class DOMReadKLNSPG
         }
     }
     
-    // Habitat Node beolvasó metódus
+    // Habitat Node beolvaso metodus
     private static void readHabitats(Document document) 
     {
         NodeList habitatList = document.getElementsByTagName("Habitat");
@@ -109,7 +129,7 @@ public class DOMReadKLNSPG
         }
     }
     
-    // Animal Node beolvasó metódus
+    // Animal Node beolvaso metodus
     private static void readAnimals(Document document) 
     {
         NodeList animalList = document.getElementsByTagName("Animal");
@@ -133,7 +153,7 @@ public class DOMReadKLNSPG
         }
     }
 
-    // Food Node beolvasó metódus
+    // Food Node beolvaso metodus
     private static void readFoods(Document document) 
     {
         NodeList foodList = document.getElementsByTagName("Food");
@@ -146,18 +166,37 @@ public class DOMReadKLNSPG
                 String foodId = eElement.getAttribute("food_id");
                 String name = eElement.getElementsByTagName("name").item(0).getTextContent();
                 String isDelicious = eElement.getElementsByTagName("is_delicious").item(0).getTextContent();
-                String company = eElement.getElementsByTagName("company").item(0).getTextContent();
-            
+    
                 System.out.println("    <Food food_id=\"" + foodId + "\">");
                 printElement("name", name);
                 printElement("is_delicious", isDelicious);
-                printElement("company", company);
+
+                // Tobberteku tulajdonsag lekezelese
+                NodeList companiesNodeList = eElement.getElementsByTagName("companies");
+                if (companiesNodeList.getLength() > 0) {
+                    Node companiesNode = companiesNodeList.item(0);
+                    if (companiesNode.getNodeType() == Node.ELEMENT_NODE) 
+                    {
+                        Element companiesElement = (Element) companiesNode;
+                        NodeList companyNodeList = companiesElement.getElementsByTagName("company");
+                        System.out.println("        <companies>");
+                        for (int i = 0; i < companyNodeList.getLength(); i++) 
+                        {
+                            Element companyElement = (Element) companyNodeList.item(i);
+                            String companyId = companyElement.getAttribute("id");
+                            System.out.println("            <company id=\"" + companyId + "\">" + companyElement.getTextContent() + "</company>");
+                        }
+
+                        System.out.println("        </companies>");
+                    }
+                }
+    
                 System.out.println("    </Food>");
             }
         }
-    }
+    }    
     
-    // Eat Node beolvasó metódus
+    // Eat Node beolvaso metodus
     private static void readEats(Document document) 
     {
         NodeList eatList = document.getElementsByTagName("Eat");
@@ -179,7 +218,7 @@ public class DOMReadKLNSPG
         }
     }
     
-    // User Node beolvasó metódus
+    // User Node beolvaso metodus
     private static void readUsers(Document document)
     {
         NodeList userList = document.getElementsByTagName("User");
@@ -216,7 +255,7 @@ public class DOMReadKLNSPG
         }
     }
     
-    // Elem kiírató metódus
+    // Elem kiirato metodus
     private static void printElement(String elementName, String content)
     {
         System.out.println("        <" + elementName + ">" + content + "</" + elementName + ">");

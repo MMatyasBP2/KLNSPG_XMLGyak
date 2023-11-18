@@ -152,18 +152,33 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 		<last_name>Janos</last_name>
 		<birth_date>1979-11-02</birth_date>
 		<sex>M</sex>
+		<posts>
+			<post>Kisallat gondozo</post>
+			<post>Eteto</post>
+			<post>Szemetszedo</post>
+		</posts>
 	</Employee>
 	<Employee emp_id="2">
 		<first_name>Jakab</first_name>
 		<last_name>Jozsef</last_name>
 		<birth_date>1954-12-06</birth_date>
 		<sex>M</sex>
+		<posts>
+			<post>Terrarium takarito</post>
+			<post>Gondnok</post>
+			<post>Jegyszedo</post>
+		</posts>
 	</Employee>
-		<Employee emp_id="3">
+	<Employee emp_id="3">
 		<first_name>Balogh</first_name>
 		<last_name>Boglarka</last_name>
 		<birth_date>2000-11-04</birth_date>
 		<sex>F</sex>
+		<posts>
+			<post>Gondozo</post>
+			<post>Eteto</post>
+			<post>Jegyszedo</post>
+		</posts>
 	</Employee>
 	
 	<!-- Site peldanyok-->
@@ -211,7 +226,7 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 		<racial>Muflon</racial>
 		<description>Az allatkert nosteny muflona</description>
 	</Animal>
-		<Animal animal_id="3">
+	<Animal animal_id="3">
 		<name>Mokas</name>
 		<racial>Szurikata</racial>
 		<description>Az allatkert legfiatalabb szurikataja</description>
@@ -221,17 +236,29 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 	<Food food_id="1">
 		<name>Fagyasztott nyershus</name>
 		<is_delicious>false</is_delicious>
-		<company>Family Frost</company>
+		<companies>
+			<company>Family Frost</company>
+			<company>Magyar Zoldseg</company>
+			<company>Eszkimo</company>
+		</companies>
 	</Food>
 	<Food food_id="2">
 		<name>Sargarepa</name>
 		<is_delicious>true</is_delicious>
-		<company>Magyar Zoldseg</company>
+		<companies>
+			<company>Allati zoldseg/gyumolcs</company>
+			<company>Magyar Zoldseg</company>
+			<company>Felix allati eledel</company>
+		</companies>
 	</Food>
-	<Food food_id="3">
+		<Food food_id="3">
 		<name>Sult husi</name>
 		<is_delicious>true</is_delicious>
-		<company>Family Frost</company>
+		<companies>
+			<company>Frosty food</company>
+			<company>Eszkimo</company>
+			<company>Magyar zoldseg</company>
+		</companies>
 	</Food>
 	
 	<!-- Eat peldanyok-->
@@ -268,7 +295,7 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 		<street>Kossuth utca</street>
 		<number>26</number>
 	</User>
-	<User user_id="3" Favor="2">
+		<User user_id="3" Favor="2">
 		<username>Possumluvr</username>
 		<password>possumlover</password>
 		<sex>F</sex>
@@ -289,228 +316,253 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 
 \begin{lstlisting}[caption={Az XSD dokumentum}]
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	
-	<!-- Sajat egyszeru tipusok definialasa -->
-	
-	<!-- Altalanos sajat tipusok-->
-	<xs:element name="name" type="xs:string"/>
-	<xs:element name="first_name" type="xs:string"/>
-	<xs:element name="last_name" type="xs:string"/>
-	<xs:element name="sex" type="sexType"/>
-	<xs:element name="description" type="xs:string"/>
-	
-	<!-- Employee sajat tipus-->
-	<xs:element name="birth_date" type="dateType"/>
-	
-	<!-- Site sajat tipusok-->
-	<xs:element name="area" type="xs:integer"/>
-	<xs:element name="opening_hours" type="xs:string"/>
-	
-	<!-- Habitat sajat tipus-->
-	<xs:element name="location" type="xs:string"/>
-	
-	<!-- Animal sajat tipus-->
-	<xs:element name="racial" type="xs:string"/>
-	
-	<!-- Food sajat tipus-->
-	<xs:element name="is_delicious" type="xs:boolean"/>
-	<xs:element name="company" type="xs:string"/>
-	
-	<!-- Eat sajat tipus-->
-	<xs:element name="feeding_time" type="timeListType"/>
-	
-	<!-- User sajat tipusok-->
-	<xs:element name="username" type="xs:string"/>
-	<xs:element name="password" type="xs:string"/>
-	<xs:element name="post_code" type="xs:string"/>
-	<xs:element name="city" type="xs:string"/>
-	<xs:element name="street" type="xs:string"/>
-	<xs:element name="number" type="xs:string"/>
-	
-	<!-- Simple types-->
-	<xs:simpleType name="dateType">
-		<xs:restriction base="xs:date">
-			<xs:minInclusive value="1940-01-01"/>
-			<xs:maxInclusive value="2000-12-31"/>
-		</xs:restriction>
-	</xs:simpleType>
-	
-	<xs:simpleType name="sexType">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="M"/>
-			<xs:enumeration value="F"/>
-		</xs:restriction>
-	</xs:simpleType>
-	
-	<xs:simpleType name="timeListType">
-		<xs:list itemType="xs:time"/>
-	</xs:simpleType>
-	
-	<!-- Complex types-->
-	<xs:complexType name="employeeType">
-		<xs:sequence>
-			<xs:element ref="first_name"/>
-			<xs:element ref="last_name"/>
-			<xs:element ref="birth_date"/>
-			<xs:element ref="sex"/>
-		</xs:sequence>
-		<xs:attribute name="emp_id" type="xs:integer" use="required"/>
-	</xs:complexType>
-	
-	<xs:complexType name="siteType">
-		<xs:sequence>
-			<xs:element ref="name"/>
-			<xs:element ref="area"/>
-			<xs:element ref="opening_hours"/>
-		</xs:sequence>
-		<xs:attribute name="site_id" type="xs:integer" use="required"/>
-		<xs:attribute name="Works" type="xs:integer" use="required"/>
-		<xs:attribute name="Manage" type="xs:integer" use="required"/>
-	</xs:complexType>
-	
-	<xs:complexType name="habitatType">
-		<xs:sequence>
-			<xs:element ref="name"/>
-			<xs:element ref="location"/>
-			<xs:element ref="description"/>
-		</xs:sequence>
-		<xs:attribute name="habitat_id" type="xs:integer" use="required"/>
-		<xs:attribute name="Occupy" type="xs:integer" use="required"/>
-	</xs:complexType>
-	
-	<xs:complexType name="animalType">
-		<xs:sequence>
-			<xs:element ref="name"/>
-			<xs:element ref="racial"/>
-			<xs:element ref="description"/>
-		</xs:sequence>
-		<xs:attribute name="animal_id" type="xs:integer" use="required"/>
-	</xs:complexType>
-	
-	<xs:complexType name="foodType">
-		<xs:sequence>
-			<xs:element ref="name"/>
-			<xs:element ref="is_delicious"/>
-			<xs:element ref="company"/>
-		</xs:sequence>
-		<xs:attribute name="food_id" type="xs:integer" use="required"/>
-	</xs:complexType>
-	
-	<xs:complexType name="eatType">
-		<xs:sequence>
-			<xs:element ref="feeding_time"/>
-		</xs:sequence>
-		<xs:attribute name="eat_id" type="xs:integer" use="required"/>
-		<xs:attribute name="FoodEat" type="xs:integer" use="required"/>
-		<xs:attribute name="AnimalEat" type="xs:integer" use="required"/>
-	</xs:complexType>
-	
-	<xs:complexType name="userType">
-		<xs:sequence>
-			<xs:element ref="username"/>
-			<xs:element ref="password"/>
-			<xs:element ref="sex"/>
-			<xs:element ref="first_name"/>
-			<xs:element ref="last_name"/>
-			<xs:element ref="post_code"/>
-			<xs:element ref="city"/>
-			<xs:element ref="street"/>
-			<xs:element ref="number"/>
-		</xs:sequence>
-		<xs:attribute name="user_id" type="xs:integer" use="required"/>
-		<xs:attribute name="Favor" type="xs:integer" use="required"/>
-	</xs:complexType>
-	
-	<!-- A gyokerelem osszetett tipusa -->
-	<xs:complexType name="zooType">
-		<xs:sequence>
-		<xs:element name="Employee" type="employeeType" minOccurs="3" maxOccurs="unbounded"/>
-		<xs:element name="Site" type="siteType" minOccurs="3" maxOccurs="unbounded"/>
-		<xs:element name="Habitat" type="habitatType" minOccurs="3" maxOccurs="unbounded"/>
-		<xs:element name="Animal" type="animalType" minOccurs="3" maxOccurs="unbounded"/>
-		<xs:element name="Food" type="foodType" minOccurs="3" maxOccurs="unbounded"/>
-		<xs:element name="Eat" type="eatType" minOccurs="3" maxOccurs="unbounded"/>
-		<xs:element name="User" type="userType" minOccurs="3" maxOccurs="unbounded"/>
-		</xs:sequence>
-	</xs:complexType>
-	
-	<!-- A gyokerelem definicioja -->
-	<xs:element name="Zoo_KLNSPG" type="zooType">
-	
-	<!-- Elsodleges kulcsok -->
-	<xs:key name="EmployeeKey">
-		<xs:selector xpath="Employee"/>
-		<xs:field xpath="@emp_id"/>
-	</xs:key>
-	
-	<xs:key name="SiteKey">
-		<xs:selector xpath="Site"/>
-		<xs:field xpath="@site_id"/>
-	</xs:key>
-	
-	<xs:key name="HabitatKey">
-		<xs:selector xpath="Habitat"/>
-		<xs:field xpath="@habitat_id"/>
-	</xs:key>
-	
-	<xs:key name="AnimalKey">
-		<xs:selector xpath="Animal"/>
-		<xs:field xpath="@animal_id"/>
-	</xs:key>
-	
-	<xs:key name="FoodKey">
-		<xs:selector xpath="Food"/>
-		<xs:field xpath="@food_id"/>
-	</xs:key>
-	
-	<xs:key name="EatKey">
-		<xs:selector xpath="Eat"/>
-		<xs:field xpath="@eat_id"/>
-	</xs:key>
-	
-	<xs:key name="UserKey">
-		<xs:selector xpath="User"/>
-		<xs:field xpath="@user_id"/>
-	</xs:key>
-	
-	<!-- Idegen kulcsok -->
-	<xs:keyref name="SiteWork" refer="EmployeeKey">
-		<xs:selector xpath="Site"/>
-		<xs:field xpath="@Works"/>
-	</xs:keyref>
-	
-	<xs:keyref name="SiteManage" refer="HabitatKey">
-		<xs:selector xpath="Site"/>
-		<xs:field xpath="@Manage"/>
-	</xs:keyref>
-	
-	<xs:keyref name="HabitatOccupy" refer="AnimalKey">
-		<xs:selector xpath="Habitat"/>
-		<xs:field xpath="@Occupy"/>
-	</xs:keyref>
-	
-	<xs:keyref name="EatFood" refer="FoodKey">
-		<xs:selector xpath="Eat"/>
-		<xs:field xpath="@FoodEat"/>
-	</xs:keyref>
-	
-	<xs:keyref name="EatAnimal" refer="AnimalKey">
-		<xs:selector xpath="Eat"/>
-		<xs:field xpath="@AnimalEat"/>
-	</xs:keyref>
-	
-	<xs:keyref name="UserAnimal" refer="AnimalKey">
-		<xs:selector xpath="User"/>
-		<xs:field xpath="@Favor"/>
-	</xs:keyref>
-	
-	<!-- Az 1:1 kapcsolat-->
-	<xs:unique name="UserAnimalConnect">
-		<xs:selector xpath="UserKey"/>
-		<xs:field xpath="@Favor"/>
-	</xs:unique>
-	
+		<!-- Sajat egyszeru tipusok definialasa -->
+		
+		<!-- Altalanos sajat tipusok-->
+		<xs:element name="name" type="xs:string"/>
+		<xs:element name="first_name" type="xs:string"/>
+		<xs:element name="last_name" type="xs:string"/>
+		<xs:element name="sex" type="sexType"/>
+		<xs:element name="description" type="xs:string"/>
+		
+		<!-- Employee sajat tipus-->
+		<xs:element name="birth_date" type="dateType"/>
+		<xs:element name="posts" type="postsType"/>
+		
+		<!-- Site sajat tipusok-->
+		<xs:element name="area" type="xs:integer"/>
+		<xs:element name="opening_hours" type="xs:string"/>
+		
+		<!-- Habitat sajat tipus-->
+		<xs:element name="location" type="xs:string"/>
+		
+		<!-- Animal sajat tipus-->
+		<xs:element name="racial" type="xs:string"/>
+		
+		<!-- Food sajat tipus-->
+		<xs:element name="is_delicious" type="xs:boolean"/>
+		<xs:element name="companies" type="companyType"/>
+		
+		<!-- Eat sajat tipus-->
+		<xs:element name="feeding_time" type="timeListType"/>
+		
+		<!-- User sajat tipusok-->
+		<xs:element name="username" type="xs:string"/>
+		<xs:element name="password" type="xs:string"/>
+		<xs:element name="post_code" type="xs:string"/>
+		<xs:element name="city" type="xs:string"/>
+		<xs:element name="street" type="xs:string"/>
+		<xs:element name="number" type="xs:string"/>
+		
+		<!-- Simple types-->
+		<xs:simpleType name="dateType">
+			<xs:restriction base="xs:date">
+				<xs:minInclusive value="1940-01-01"/>
+				<xs:maxInclusive value="2000-12-31"/>
+			</xs:restriction>
+		</xs:simpleType>
+		
+		<xs:simpleType name="sexType">
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="M"/>
+				<xs:enumeration value="F"/>
+			</xs:restriction>
+		</xs:simpleType>
+		
+		<xs:simpleType name="timeListType">
+			<xs:list itemType="xs:time"/>
+		</xs:simpleType>
+		
+		<xs:simpleType name="postAttributeType">
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+		
+		<xs:simpleType name="companyAttributeType">
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+		
+		<!-- Complex types-->
+		<xs:complexType name="employeeType">
+			<xs:sequence>
+				<xs:element ref="first_name"/>
+				<xs:element ref="last_name"/>
+				<xs:element ref="birth_date"/>
+				<xs:element ref="sex"/>
+				<xs:element ref="posts"/>
+			</xs:sequence>
+			<xs:attribute name="emp_id" type="xs:integer" use="required"/>
+		</xs:complexType>
+		
+		<xs:complexType name="postsType">
+			<xs:sequence>
+				<xs:element name="post" type="xs:string" minOccurs="1" maxOccurs="3"/>
+			</xs:sequence>
+			<xs:attribute name="post" type="postAttributeType"/>
+		</xs:complexType>
+		
+		<xs:complexType name="siteType">
+			<xs:sequence>
+				<xs:element ref="name"/>
+				<xs:element ref="area"/>
+				<xs:element ref="opening_hours"/>
+			</xs:sequence>
+			<xs:attribute name="site_id" type="xs:integer" use="required"/>
+			<xs:attribute name="Works" type="xs:integer" use="required"/>
+			<xs:attribute name="Manage" type="xs:integer" use="required"/>
+		</xs:complexType>
+		
+		<xs:complexType name="habitatType">
+			<xs:sequence>
+				<xs:element ref="name"/>
+				<xs:element ref="location"/>
+				<xs:element ref="description"/>
+			</xs:sequence>
+			<xs:attribute name="habitat_id" type="xs:integer" use="required"/>
+			<xs:attribute name="Occupy" type="xs:integer" use="required"/>
+		</xs:complexType>
+		
+		<xs:complexType name="animalType">
+			<xs:sequence>
+				<xs:element ref="name"/>
+				<xs:element ref="racial"/>
+				<xs:element ref="description"/>
+			</xs:sequence>
+			<xs:attribute name="animal_id" type="xs:integer" use="required"/>
+		</xs:complexType>
+		
+		<xs:complexType name="foodType">
+			<xs:sequence>
+				<xs:element ref="name"/>
+				<xs:element ref="is_delicious"/>
+				<xs:element ref="companies"/>
+			</xs:sequence>
+			<xs:attribute name="food_id" type="xs:integer" use="required"/>
+		</xs:complexType>
+		
+		<xs:complexType name="companyType">
+			<xs:sequence>
+				<xs:element name="company" type="xs:string" minOccurs="1" maxOccurs="3"/>
+			</xs:sequence>
+			<xs:attribute name="company" type="companyAttributeType"/>
+		</xs:complexType>
+		
+		<xs:complexType name="eatType">
+			<xs:sequence>
+				<xs:element ref="feeding_time"/>
+			</xs:sequence>
+			<xs:attribute name="eat_id" type="xs:integer" use="required"/>
+			<xs:attribute name="FoodEat" type="xs:integer" use="required"/>
+			<xs:attribute name="AnimalEat" type="xs:integer" use="required"/>
+		</xs:complexType>
+		
+		<xs:complexType name="userType">
+			<xs:sequence>
+				<xs:element ref="username"/>
+				<xs:element ref="password"/>
+				<xs:element ref="sex"/>
+				<xs:element ref="first_name"/>
+				<xs:element ref="last_name"/>
+				<xs:element ref="post_code"/>
+				<xs:element ref="city"/>
+				<xs:element ref="street"/>
+				<xs:element ref="number"/>
+			</xs:sequence>
+			<xs:attribute name="user_id" type="xs:integer" use="required"/>
+			<xs:attribute name="Favor" type="xs:integer" use="required"/>
+		</xs:complexType>
+		
+		<!-- A gyokerelem osszetett tipusa -->
+		<xs:complexType name="zooType">
+			<xs:sequence>
+				<xs:element name="Employee" type="employeeType" minOccurs="3" maxOccurs="unbounded"/>
+				<xs:element name="Site" type="siteType" minOccurs="3" maxOccurs="unbounded"/>
+				<xs:element name="Habitat" type="habitatType" minOccurs="3" maxOccurs="unbounded"/>
+				<xs:element name="Animal" type="animalType" minOccurs="3" maxOccurs="unbounded"/>
+				<xs:element name="Food" type="foodType" minOccurs="3" maxOccurs="unbounded"/>
+				<xs:element name="Eat" type="eatType" minOccurs="3" maxOccurs="unbounded"/>
+				<xs:element name="User" type="userType" minOccurs="3" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+		
+		<!-- A gyokerelem definicioja -->
+		<xs:element name="Zoo_KLNSPG" type="zooType">
+		
+		<!-- Elsodleges kulcsok -->
+		<xs:key name="EmployeeKey">
+			<xs:selector xpath="Employee"/>
+			<xs:field xpath="@emp_id"/>
+		</xs:key>
+		
+		<xs:key name="SiteKey">
+			<xs:selector xpath="Site"/>
+			<xs:field xpath="@site_id"/>
+		</xs:key>
+		
+		<xs:key name="HabitatKey">
+			<xs:selector xpath="Habitat"/>
+			<xs:field xpath="@habitat_id"/>
+		</xs:key>
+		
+		<xs:key name="AnimalKey">
+			<xs:selector xpath="Animal"/>
+			<xs:field xpath="@animal_id"/>
+		</xs:key>
+		
+		<xs:key name="FoodKey">
+			<xs:selector xpath="Food"/>
+			<xs:field xpath="@food_id"/>
+		</xs:key>
+		
+		<xs:key name="EatKey">
+			<xs:selector xpath="Eat"/>
+			<xs:field xpath="@eat_id"/>
+		</xs:key>
+		
+		<xs:key name="UserKey">
+			<xs:selector xpath="User"/>
+			<xs:field xpath="@user_id"/>
+		</xs:key>
+		
+		<!-- Idegen kulcsok -->
+		<xs:keyref name="SiteWork" refer="EmployeeKey">
+			<xs:selector xpath="Site"/>
+			<xs:field xpath="@Works"/>
+		</xs:keyref>
+		
+		<xs:keyref name="SiteManage" refer="HabitatKey">
+			<xs:selector xpath="Site"/>
+			<xs:field xpath="@Manage"/>
+		</xs:keyref>
+		
+		<xs:keyref name="HabitatOccupy" refer="AnimalKey">
+			<xs:selector xpath="Habitat"/>
+			<xs:field xpath="@Occupy"/>
+		</xs:keyref>
+		
+		<xs:keyref name="EatFood" refer="FoodKey">
+			<xs:selector xpath="Eat"/>
+			<xs:field xpath="@FoodEat"/>
+		</xs:keyref>
+		
+		<xs:keyref name="EatAnimal" refer="AnimalKey">
+			<xs:selector xpath="Eat"/>
+			<xs:field xpath="@AnimalEat"/>
+		</xs:keyref>
+		
+		<xs:keyref name="UserAnimal" refer="AnimalKey">
+			<xs:selector xpath="User"/>
+			<xs:field xpath="@Favor"/>
+		</xs:keyref>
+		
+		<!-- Az 1:1 kapcsolat-->
+		<xs:unique name="UserAnimalConnect">
+			<xs:selector xpath="UserKey"/>
+			<xs:field xpath="@Favor"/>
+		</xs:unique>
 	</xs:element>
 </xs:schema>
 \end{lstlisting}
@@ -569,12 +621,29 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 					String empId = eElement.getAttribute("emp_id");
 					String firstName = eElement.getElementsByTagName("first_name").item(0).getTextContent();
 					String lastName = eElement.getElementsByTagName("last_name").item(0).getTextContent();
+					String birthDate = eElement.getElementsByTagName("birth_date").item(0).getTextContent();
 					String sex = eElement.getElementsByTagName("sex").item(0).getTextContent();
 					
 					System.out.println("    <Employee emp_id=\"" + empId + "\">");
 					printElement("first_name", firstName);
 					printElement("last_name", lastName);
+					printElement("birth_date", birthDate);
 					printElement("sex", sex);
+					
+					// Tobberteku tulajdonsag lekezelese
+					if (eElement.getElementsByTagName("posts").getLength() > 0) {
+						NodeList posts = eElement.getElementsByTagName("posts").item(0).getChildNodes();
+						System.out.println("        <posts>");
+						for (int i = 0; i < posts.getLength(); i++) {
+							Node postNode = posts.item(i);
+							if (postNode.getNodeType() == Node.ELEMENT_NODE) {
+								Element postElement = (Element) postNode;
+								System.out.println("            <post>" + postElement.getTextContent() + "</post>");
+							}
+						}
+						System.out.println("        </posts>");
+					}
+					
 					System.out.println("    </Employee>");
 				}
 			}
@@ -668,16 +737,35 @@ Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
 					String foodId = eElement.getAttribute("food_id");
 					String name = eElement.getElementsByTagName("name").item(0).getTextContent();
 					String isDelicious = eElement.getElementsByTagName("is_delicious").item(0).getTextContent();
-					String company = eElement.getElementsByTagName("company").item(0).getTextContent();
 					
 					System.out.println("    <Food food_id=\"" + foodId + "\">");
 					printElement("name", name);
 					printElement("is_delicious", isDelicious);
-					printElement("company", company);
+					
+					// Tobberteku tulajdonsag lekezelese
+					NodeList companiesNodeList = eElement.getElementsByTagName("companies");
+					if (companiesNodeList.getLength() > 0) {
+						Node companiesNode = companiesNodeList.item(0);
+						if (companiesNode.getNodeType() == Node.ELEMENT_NODE) 
+						{
+							Element companiesElement = (Element) companiesNode;
+							NodeList companyNodeList = companiesElement.getElementsByTagName("company");
+							System.out.println("        <companies>");
+							for (int i = 0; i < companyNodeList.getLength(); i++) 
+							{
+								Element companyElement = (Element) companyNodeList.item(i);
+								String companyId = companyElement.getAttribute("id");
+								System.out.println("            <company id=\"" + companyId + "\">" + companyElement.getTextContent() + "</company>");
+							}
+							
+							System.out.println("        </companies>");
+						}
+					}
+					
 					System.out.println("    </Food>");
 				}
 			}
-		}
+		}    
 		
 		// Eat Node beolvaso metodus
 		private static void readEats(Document document) 
@@ -864,15 +952,39 @@ public class DOMQueryKLNSPG
 			{
 				Element element = (Element) node;
 				String sex = element.getElementsByTagName("sex").item(0).getTextContent();
-				if (sex.equals("M")) {
+				if (sex.equals("M")) 
+				{
 					String empId = element.getAttribute("emp_id");
 					String firstName = element.getElementsByTagName("first_name").item(0).getTextContent();
 					String lastName = element.getElementsByTagName("last_name").item(0).getTextContent();
 					String birthDate = element.getElementsByTagName("birth_date").item(0).getTextContent();
-					outputBuilder.append(String.format("  <Employee ID=\"%s\">\n", empId));
-					outputBuilder.append(String.format("    <Name>%s %s</Name>\n", firstName, lastName));
-					outputBuilder.append(String.format("    <BirthDate>%s</BirthDate>\n", birthDate));
-					outputBuilder.append(String.format("    <Sex>%s</Sex>\n", sex));
+					outputBuilder.append(String.format("  <Employee emp_id=\"%s\">\n", empId));
+					outputBuilder.append(String.format("    <first_name>%s</first_name>\n", firstName));
+					outputBuilder.append(String.format("    <last_name>%s</last_name>\n", lastName));
+					outputBuilder.append(String.format("    <birth_date>%s</birth_date>\n", birthDate));
+					outputBuilder.append(String.format("    <sex>%s</sex>\n", sex));
+					
+					// Posts es azok elemeinek kezelese
+					NodeList postsList = element.getElementsByTagName("posts");
+					if (postsList.getLength() > 0) {
+						Node postsNode = postsList.item(0);
+						if (postsNode.getNodeType() == Node.ELEMENT_NODE) 
+						{
+							outputBuilder.append("    <posts>\n");
+							NodeList postList = ((Element)postsNode).getElementsByTagName("post");
+							for (int j = 0; j < postList.getLength(); j++) 
+							{
+								Node postNode = postList.item(j);
+								if (postNode.getNodeType() == Node.ELEMENT_NODE) 
+								{
+									String post = postNode.getTextContent();
+									outputBuilder.append(String.format("      <post>%s</post>\n", post));
+								}
+							}
+							outputBuilder.append("    </posts>\n");
+						}
+					}
+					
 					outputBuilder.append("  </Employee>\n");
 				}
 			}
@@ -897,7 +1009,8 @@ public class DOMQueryKLNSPG
 				}
 			}
 		}
-		if (maxAreaElement != null) {
+		if (maxAreaElement != null) 
+		{
 			String siteId = maxAreaElement.getAttribute("site_id");
 			String name = maxAreaElement.getElementsByTagName("name").item(0).getTextContent();
 			outputBuilder.append("\n<LargestSite>\n");
@@ -922,9 +1035,34 @@ public class DOMQueryKLNSPG
 					String empId = element.getAttribute("emp_id");
 					String firstName = element.getElementsByTagName("first_name").item(0).getTextContent();
 					String lastName = element.getElementsByTagName("last_name").item(0).getTextContent();
-					outputBuilder.append(String.format("  <Employee ID=\"%s\">\n", empId));
-					outputBuilder.append(String.format("    <Name>%s %s</Name>\n", firstName, lastName));
-					outputBuilder.append(String.format("    <BirthDate>%s</BirthDate>\n", birthDate));
+					String sex = element.getElementsByTagName("sex").item(0).getTextContent();
+					
+					outputBuilder.append(String.format("  <Employee emp_id=\"%s\">\n", empId));
+					outputBuilder.append(String.format("    <first_name>%s</first_name>\n", firstName));
+					outputBuilder.append(String.format("    <last_name>%s</last_name>\n", lastName));
+					outputBuilder.append(String.format("    <birth_date>%s</birth_date>\n", birthDate));
+					outputBuilder.append(String.format("    <sex>%s</sex>\n", sex));
+					
+					// Posts es azok elemeinek kezelese
+					NodeList postsList = element.getElementsByTagName("posts");
+					if (postsList.getLength() > 0) {
+						Node postsNode = postsList.item(0);
+						if (postsNode.getNodeType() == Node.ELEMENT_NODE) 
+						{
+							outputBuilder.append("    <posts>\n");
+							NodeList postList = ((Element)postsNode).getElementsByTagName("post");
+							for (int j = 0; j < postList.getLength(); j++) {
+								Node postNode = postList.item(j);
+								if (postNode.getNodeType() == Node.ELEMENT_NODE) 
+								{
+									String post = postNode.getTextContent();
+									outputBuilder.append(String.format("      <post>%s</post>\n", post));
+								}
+							}
+							outputBuilder.append("    </posts>\n");
+						}
+					}
+					
 					outputBuilder.append("  </Employee>\n");
 				}
 			}
@@ -984,9 +1122,9 @@ public class DOMQueryKLNSPG
 \section{Adatírás}
 \indent\indent A kód fő funkciója, hogy beolvassa és kiírja az XML tartalmakat a konzolra és fájlba is. A \texttt{main} metódusban az \textit{XMLKLNSPG} fájlt olvassa be a megadott útvonalról, használva a \\ \texttt{DocumentBuilderFactory} és \texttt{DocumentBuilder} osztályokat az XML struktúra elemzéséhez. Ezután normalizálja a dokumentumot a \texttt{normalize} metódussal, ami segít a DOM fa struktúrájának rendezésében.
 
-A \texttt{printNode} metódus rekurzívan bejárja a DOM fát, és az elemeket XML formátumban írja ki a konzolra, beleértve az attribútumokat és szöveges tartalmakat is. A kód gondosan kezeli az attribútumokat és a gyermek elemeket, így az XML struktúra a konzolra írásakor is megőrzi eredeti formáját. A gyermek elemek kezelésével a kód biztosítja, hogy az XML fa minden része megfelelően legyen reprezentálva és hierarchikusan jól strukturált legyen.
+A kiíratást a \texttt{TransformerFactory} és a \texttt{Transformer} osztályok segítségével végezzük el, pont ahogy az adatmódosító kódban.
 
-A \texttt{writeDocumentToFile} metódus egy \texttt{Transformer} objektumot használ az XML dokumentum fájlba írásához, tiszteletben tartva az XML formázási szabályokat. Ez a metódus lehetővé teszi egy új XML dokumentumok mentését. A kiírási folyamat során a kód biztosítja az XML szabványoknak megfelelő indentálást és formázást, ami olvashatóbbá és könnyebben értelmezhetővé teszi a kimenetet.
+A \texttt{writeDocumentToFile} metódus is egy \texttt{Transformer} objektumot használ az XML dokumentum fájlba írásához, tiszteletben tartva az XML formázási szabályokat. Ez a metódus lehetővé teszi egy új XML dokumentumok mentését. A kiírási folyamat során a kód biztosítja az XML szabványoknak megfelelő indentálást és formázást, ami olvashatóbbá és könnyebben értelmezhetővé teszi a kimenetet.
 
 A kivételkezelés a kódban biztosítja, hogy az XML olvasás vagy írás közben fellépő hibák megfelelően kezelve legyenek, megelőzve ezzel a program összeomlását.\\
 
@@ -1000,10 +1138,9 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 
-public class DOMWriteKLNSPG
+public class DOMWriteKLNSPG 
 {
-	// Main metodus
-	public static void main(String[] args)
+	public static void main(String[] args) 
 	{
 		try 
 		{
@@ -1012,56 +1149,22 @@ public class DOMWriteKLNSPG
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(inputFile);
 			doc.getDocumentElement().normalize();
-			
-			printNode(doc.getDocumentElement(), "");
+			System.out.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			DOMSource source = new DOMSource(doc);
+			StreamResult consoleResult = new StreamResult(System.out);
+			transformer.transform(source, consoleResult);
 			writeDocumentToFile(doc, "XMLKLNSPG1.xml");
 			
 			System.out.println("The content has been written to the output file successfully.");
-		} catch (SAXException | IOException | ParserConfigurationException | TransformerException e) 
+		} 
+		catch (SAXException | IOException | ParserConfigurationException | TransformerException e) 
 		{
 			e.printStackTrace();
 		}
 	}
-	
-	// Konzolra kiirato metodus XML formatumban
-	private static void printNode(Node node, String indent) 
-	{
-		if (node.getNodeType() == Node.ELEMENT_NODE) 
-		{
-			System.out.print(indent + "<" + node.getNodeName());
-			
-			if (node.hasAttributes()) 
-			{
-				NamedNodeMap nodeMap = node.getAttributes();
-				for (int i = 0; i < nodeMap.getLength(); i++) 
-				{
-					Node attr = nodeMap.item(i);
-					System.out.print(" " + attr.getNodeName() + "=\"" + attr.getNodeValue() + "\"");
-				}
-			}
-			
-			NodeList children = node.getChildNodes();
-			if (children.getLength() == 0)
-			System.out.println("/>");
-			else 
-			{
-				System.out.println(">");
-				String childIndent = indent + "    ";
-				for (int i = 0; i < children.getLength(); i++)
-				printNode(children.item(i), childIndent);
-				
-				System.out.println(indent + "</" + node.getNodeName() + ">");
-			}
-		} 
-		else if (node.getNodeType() == Node.TEXT_NODE) 
-		{
-			String content = node.getTextContent().trim();
-			if (!content.isEmpty())
-			System.out.println(indent + content);
-		}
-	}    
-	
-	// Faljba kiirato metodus
 	private static void writeDocumentToFile(Document doc, String filename) throws TransformerException 
 	{
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();

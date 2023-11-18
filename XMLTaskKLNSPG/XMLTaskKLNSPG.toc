@@ -3,9 +3,9 @@
 \select@language {magyar} \contentsline {section}{\numberline {2.1}ER modell}{4}{section.2.1}%
 \select@language {magyar} \contentsline {section}{\numberline {2.2}XDM modell}{4}{section.2.2}%
 \select@language {magyar} \contentsline {section}{\numberline {2.3}Az XML dokumentum}{5}{section.2.3}%
-\select@language {magyar} \contentsline {section}{\numberline {2.4}Az XML dokumentum alapján XMLSchema készítése}{9}{section.2.4}%
-\select@language {magyar} \contentsline {chapter}{\numberline {3}II. feladat - DOM}{14}{chapter.3}%
-\select@language {magyar} \contentsline {section}{\numberline {3.1}Adatolvasás}{14}{section.3.1}%
-\select@language {magyar} \contentsline {section}{\numberline {3.2}Adatmódosítás}{20}{section.3.2}%
-\select@language {magyar} \contentsline {section}{\numberline {3.3}Adatlekérdezés}{22}{section.3.3}%
-\select@language {magyar} \contentsline {section}{\numberline {3.4}Adatírás}{26}{section.3.4}%
+\select@language {magyar} \contentsline {section}{\numberline {2.4}Az XML dokumentum alapján XMLSchema készítése}{10}{section.2.4}%
+\select@language {magyar} \contentsline {chapter}{\numberline {3}II. feladat - DOM}{16}{chapter.3}%
+\select@language {magyar} \contentsline {section}{\numberline {3.1}Adatolvasás}{16}{section.3.1}%
+\select@language {magyar} \contentsline {section}{\numberline {3.2}Adatmódosítás}{23}{section.3.2}%
+\select@language {magyar} \contentsline {section}{\numberline {3.3}Adatlekérdezés}{25}{section.3.3}%
+\select@language {magyar} \contentsline {section}{\numberline {3.4}Adatírás}{30}{section.3.4}%
