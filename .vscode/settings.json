@@ -1,9 +1,9 @@
 {
     "java.project.sourcePaths": [
         "XMLTaskKLNSPG/hu/domparse/KLNSPG",
-        "KLNSPG_1115/DomQueryKLNSPG/src/domyd11nl1115",
+        "KLNSPG_1115/DomQueryKLNSPG/domKLNSPG1115",
         "KLNSPG_1108/domklnspg1108",
         "KLNSPG_1025",
-        "KLNSPG_1115/DomQueryKLNSPG/domKLNSPG1115"
+        "KLNSPG_1122"
     ]
 }
